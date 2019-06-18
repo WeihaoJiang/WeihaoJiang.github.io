@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="本篇文章的背景以及夙愿 1 增强kotlin开发水平 2 保持更博客的习惯 3 搬砖，挣钱，养我媳妇儿  为什么要学习kotlin（因为本人是Android开发，所以仅从Android角度来说）  1 简介：大型项目迭代过程中，阅读代码+写新需求是必不可少的，不论是同事的代码还是自己的代码，因此代码的简洁程度就成了提升生产力的关键 2 安全可靠：kotlin的设计是可以防止程序因为某些错误挂掉的，">
+<meta name="description" content="本篇文章的背景以及夙愿 1 增强kotlin开发水平 2 保持更博客的习惯  为什么要学习kotlin（因为本人是Android开发，所以仅从Android角度来说）  1 简介：大型项目迭代过程中，阅读代码+写新需求是必不可少的，不论是同事的代码还是自己的代码，因此代码的简洁程度就成了提升生产力的关键 2 安全可靠：kotlin的设计是可以防止程序因为某些错误挂掉的，举一个例子：空安全，简而言之">
 <meta name="keywords" content="Kotlin，基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kotlin开发学习">
 <meta property="og:url" content="http://yoursite.com/2018/11/19/kotlin总结/index.html">
 <meta property="og:site_name" content="Coding_dog的成长笔记">
-<meta property="og:description" content="本篇文章的背景以及夙愿 1 增强kotlin开发水平 2 保持更博客的习惯 3 搬砖，挣钱，养我媳妇儿  为什么要学习kotlin（因为本人是Android开发，所以仅从Android角度来说）  1 简介：大型项目迭代过程中，阅读代码+写新需求是必不可少的，不论是同事的代码还是自己的代码，因此代码的简洁程度就成了提升生产力的关键 2 安全可靠：kotlin的设计是可以防止程序因为某些错误挂掉的，">
+<meta property="og:description" content="本篇文章的背景以及夙愿 1 增强kotlin开发水平 2 保持更博客的习惯  为什么要学习kotlin（因为本人是Android开发，所以仅从Android角度来说）  1 简介：大型项目迭代过程中，阅读代码+写新需求是必不可少的，不论是同事的代码还是自己的代码，因此代码的简洁程度就成了提升生产力的关键 2 安全可靠：kotlin的设计是可以防止程序因为某些错误挂掉的，举一个例子：空安全，简而言之">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-19T11:19:54.522Z">
+<meta property="og:updated_time" content="2019-06-18T03:19:44.986Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kotlin开发学习">
-<meta name="twitter:description" content="本篇文章的背景以及夙愿 1 增强kotlin开发水平 2 保持更博客的习惯 3 搬砖，挣钱，养我媳妇儿  为什么要学习kotlin（因为本人是Android开发，所以仅从Android角度来说）  1 简介：大型项目迭代过程中，阅读代码+写新需求是必不可少的，不论是同事的代码还是自己的代码，因此代码的简洁程度就成了提升生产力的关键 2 安全可靠：kotlin的设计是可以防止程序因为某些错误挂掉的，">
+<meta name="twitter:description" content="本篇文章的背景以及夙愿 1 增强kotlin开发水平 2 保持更博客的习惯  为什么要学习kotlin（因为本人是Android开发，所以仅从Android角度来说）  1 简介：大型项目迭代过程中，阅读代码+写新需求是必不可少的，不论是同事的代码还是自己的代码，因此代码的简洁程度就成了提升生产力的关键 2 安全可靠：kotlin的设计是可以防止程序因为某些错误挂掉的，举一个例子：空安全，简而言之">
 
 
 
@@ -365,7 +365,6 @@
         <h2 id="本篇文章的背景以及夙愿"><a href="#本篇文章的背景以及夙愿" class="headerlink" title="本篇文章的背景以及夙愿"></a>本篇文章的背景以及夙愿</h2><ul>
 <li>1 增强kotlin开发水平</li>
 <li>2 保持更博客的习惯</li>
-<li>3 搬砖，挣钱，养我媳妇儿</li>
 </ul>
 <h2 id="为什么要学习kotlin"><a href="#为什么要学习kotlin" class="headerlink" title="为什么要学习kotlin"></a>为什么要学习kotlin</h2><p>（因为本人是Android开发，所以仅从Android角度来说）</p>
 <ul>
@@ -373,7 +372,14 @@
 <li>2 安全可靠：<br>kotlin的设计是可以防止程序因为某些错误挂掉的，举一个例子：空安全，简而言之就是kotlin帮助我们避开空指针异常这类错误，节省后期找错误一步一步debug的时间，这个后面详细说</li>
 <li>3 互操作性：<br>和Java无缝连接，几乎可以使用所有Java库</li>
 </ul>
-<p>未完待续^_^</p>
+<h2 id="个人体验kotlin与Java不同之处"><a href="#个人体验kotlin与Java不同之处" class="headerlink" title="个人体验kotlin与Java不同之处"></a>个人体验kotlin与Java不同之处</h2><p>（val,var常量变量声明，fun声明方法等等请自行百度，此处仅记录用惯了Java原生开发改用kotlin导致不舒服的地方）</p>
+<h3 id="when关键字的使用"><a href="#when关键字的使用" class="headerlink" title="when关键字的使用"></a>when关键字的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">when (status) &#123;</span><br><span class="line">STATUS_CAR_GOOD -&gt; &#123;</span><br><span class="line">selectedView(tv_car_status_good, iv_car_status_good)</span><br><span class="line">curCarStatus = getData()?.priceResultKey?.high</span><br><span class="line">&#125;</span><br><span class="line">STATUS_CAR_COMM -&gt; &#123;</span><br><span class="line">selectedView(tv_car_status_common, iv_car_status_common)</span><br><span class="line">curCarStatus = getData()?.priceResultKey?.middle</span><br><span class="line">&#125;</span><br><span class="line">STATUS_CAR_DIFF -&gt; &#123;</span><br><span class="line">selectedView(tv_car_status_diff, iv_car_status_diff)</span><br><span class="line">curCarStatus = getData()?.priceResultKey?.low</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="for循环的变形使用"><a href="#for循环的变形使用" class="headerlink" title="for循环的变形使用"></a>for循环的变形使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">for (itemData in golds) &#123;</span><br><span class="line">num ++</span><br><span class="line">if (num &gt; 3) &#123;</span><br><span class="line">return</span><br><span class="line"> &#125;</span><br><span class="line"> val itemCtrl = AppraiserItemCtrl(mContext, golds)</span><br><span class="line"> val itemView = itemCtrl.createView(ll_appraiser_list)</span><br><span class="line"> itemView.layoutParams = mLayoutParams</span><br><span class="line"> ll_appraiser_list.addView(itemView)</span><br><span class="line"> itemCtrl.setData(itemData)</span><br><span class="line"> itemCtrl.bindView()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (i in 1..100)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意kotlin的区间是闭合的，第二个值始终是区间的一部分</p>
+<h3 id="object关键字在声明单例，接口时的使用"><a href="#object关键字在声明单例，接口时的使用" class="headerlink" title="object关键字在声明单例，接口时的使用"></a>object关键字在声明单例，接口时的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">mContentListRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() &#123;</span><br><span class="line">override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) &#123;</span><br><span class="line">super.onScrollStateChanged(recyclerView, newState)</span><br><span class="line">if (recyclerView == null) &#123;</span><br><span class="line">return</span><br><span class="line">&#125;</span><br><span class="line">when (newState) &#123;</span><br><span class="line">RecyclerView.SCROLL_STATE_IDLE -&gt; &#123;</span><br><span class="line">if (!recyclerView.canScrollVertically(-1)) &#123;</span><br><span class="line">appbar.setExpanded(true, true)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">RecyclerView.SCROLL_STATE_DRAGGING -&gt; &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">RecyclerView.SCROLL_STATE_SETTLING -&gt; &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="伴生对象代替static"><a href="#伴生对象代替static" class="headerlink" title="伴生对象代替static"></a>伴生对象代替static</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">companion object &#123;</span><br><span class="line">const val TYPE_AROUND = 0</span><br><span class="line">const val TYPE_REFERENCE = 1</span><br><span class="line">const val TYPE_RECOM_CAR = 2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>companion object修饰的对象或方法，等同于静态对象或方法<br>未完待续^_^</p>
 
       
     </div>
@@ -551,7 +557,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#本篇文章的背景以及夙愿"><span class="nav-number">1.</span> <span class="nav-text">本篇文章的背景以及夙愿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要学习kotlin"><span class="nav-number">2.</span> <span class="nav-text">为什么要学习kotlin</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#本篇文章的背景以及夙愿"><span class="nav-number">1.</span> <span class="nav-text">本篇文章的背景以及夙愿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要学习kotlin"><span class="nav-number">2.</span> <span class="nav-text">为什么要学习kotlin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#个人体验kotlin与Java不同之处"><span class="nav-number">3.</span> <span class="nav-text">个人体验kotlin与Java不同之处</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#when关键字的使用"><span class="nav-number">3.1.</span> <span class="nav-text">when关键字的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for循环的变形使用"><span class="nav-number">3.2.</span> <span class="nav-text">for循环的变形使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#object关键字在声明单例，接口时的使用"><span class="nav-number">3.3.</span> <span class="nav-text">object关键字在声明单例，接口时的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伴生对象代替static"><span class="nav-number">3.4.</span> <span class="nav-text">伴生对象代替static</span></a></li></ol></li></ol></div>
             
 
           </div>
