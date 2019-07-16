@@ -262,6 +262,176 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/view总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Coding_dog">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding_dog的成长笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/16/view总结/" itemprop="url">View学习总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T00:00:00+08:00">
+                2019-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/16/view总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/16/view总结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="背景以及夙愿"><a href="#背景以及夙愿" class="headerlink" title="背景以及夙愿"></a>背景以及夙愿</h2><ul>
+<li>1 写了一些自定义view的需求，希望有个总结，以供日后查阅</li>
+<li>2 view不仅仅是自定义view，希望有个全面了解</li>
+<li>3 养成研究源码的习惯</li>
+</ul>
+<h2 id="View概述"><a href="#View概述" class="headerlink" title="View概述"></a>View概述</h2><h3 id="官方文档的介绍"><a href="#官方文档的介绍" class="headerlink" title="官方文档的介绍"></a>官方文档的介绍</h3><p>View is the base class for widgets, which are used to create interactive UI components (buttons, text fields, etc.). The android.view.ViewGroup subclass is the base class for layouts, which are invisible containers that hold other Views (or other ViewGroups) and define their layout properties.<br>意思是说：View是窗口小部件的基类，用于创建交互式UI（Button,TextView等都是它的子类），而android.view.ViewGroup子类是布局的基类，它是包含其他视图（或其他ViewGroups）并定义其布局属性的不可见容器。<br>总结来说：我们看到的所有可视化UI组件都可以看做是View,下面从以下几个方面来了解它</p>
+<h2 id="View的滑动"><a href="#View的滑动" class="headerlink" title="View的滑动"></a>View的滑动</h2><h3 id="srollTo和srollBy"><a href="#srollTo和srollBy" class="headerlink" title="srollTo和srollBy"></a>srollTo和srollBy</h3><h4 id="看看源码"><a href="#看看源码" class="headerlink" title="看看源码"></a>看看源码</h4> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public void scrollTo(int x, int y) &#123;</span><br><span class="line">    if (mScrollX != x || mScrollY != y) &#123;</span><br><span class="line">        int oldX = mScrollX;</span><br><span class="line">        int oldY = mScrollY;</span><br><span class="line">        mScrollX = x;</span><br><span class="line">        mScrollY = y;</span><br><span class="line">        invalidateParentCaches();</span><br><span class="line">        onScrollChanged(mScrollX, mScrollY, oldX, oldY);</span><br><span class="line">        if (!awakenScrollBars()) &#123;</span><br><span class="line">            postInvalidateOnAnimation();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Move the scrolled position of your view. This will cause a call to</span><br><span class="line"> * &#123;@link #onScrollChanged(int, int, int, int)&#125; and the view will be</span><br><span class="line"> * invalidated.</span><br><span class="line"> * @param x the amount of pixels to scroll by horizontally</span><br><span class="line"> * @param y the amount of pixels to scroll by vertically</span><br><span class="line"> */</span><br><span class="line">public void scrollBy(int x, int y) &#123;</span><br><span class="line">    scrollTo(mScrollX + x, mScrollY + y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="具体说明"><a href="#具体说明" class="headerlink" title="具体说明"></a>具体说明</h4><p> srollTo()方法：在当前视图内容偏移至(x , y)坐标处，即显示(可视)区域位于(x , y)坐标处。<br> srollBy()方法：在当前视图内容继续偏移(x , y)个单位，显示(可视)区域也跟着偏移(x,y)个单位。<br> srollTo()和srollBy()移动得都是view的内容，view本身并未移动</p>
+<h4 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h4><p> 下面写了一个demo验证一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">   protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">       super.onCreate(savedInstanceState);</span><br><span class="line">       setContentView(R.layout.activity_main);</span><br><span class="line">       bn_scrollTo = findViewById(R.id.bn_scrollTo);</span><br><span class="line">       bn_scrollBy = findViewById(R.id.bn_scrollBy);</span><br><span class="line">       text = findViewById(R.id.tv_text);</span><br><span class="line"></span><br><span class="line">       bn_scrollTo.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">           @Override</span><br><span class="line">           public void onClick(View v) &#123;</span><br><span class="line">               v.scrollTo(50,50);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line">       bn_scrollBy.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">           @Override</span><br><span class="line">           public void onClick(View v) &#123;</span><br><span class="line">               v.scrollBy(50,50);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line">       </span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行效果<br><img src="https://s2.ax1x.com/2019/07/16/ZbpygP.gif" alt="图片"></p>
+<h3 id="通过动画实现"><a href="#通过动画实现" class="headerlink" title="通过动画实现"></a>通过动画实现</h3><h4 id="看例子"><a href="#看例子" class="headerlink" title="看例子"></a>看例子</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        bn_scrollTo = findViewById(R.id.bn_scrollTo);</span><br><span class="line">        bn_scrollBy = findViewById(R.id.bn_scrollBy);</span><br><span class="line">        text = findViewById(R.id.tv_text);</span><br><span class="line"></span><br><span class="line">        bn_scrollTo.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View v) &#123;</span><br><span class="line">                //v.scrollTo(50,50);</span><br><span class="line">                ObjectAnimator.ofFloat(bn_scrollTo,&quot;translationX&quot;,0,200,0,0).setDuration(1000).start();</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        bn_scrollBy.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View v) &#123;</span><br><span class="line">                //v.scrollBy(50,50);</span><br><span class="line">                ObjectAnimator.ofFloat(bn_scrollBy,&quot;translationX&quot;,0,-200,0,0).setDuration(1000).start();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行效果<br><img src="https://s2.ax1x.com/2019/07/16/ZbZOQH.gif" alt="图片"></p>
+<h4 id="方法说明"><a href="#方法说明" class="headerlink" title="方法说明"></a>方法说明</h4><p>这里使用了属性动画ObjectAnimator来实现滑动，个人理解动画并不属于滑动，只是实现了类似滑动的效果，我们可以通过调整动画持续时间setDuration()来做出具有弹性的滑动效果，这里不再多说，关于ObjectAnimator的其他方法可以<a href="https://blog.csdn.net/harvic880925/article/details/50598322" target="_blank" rel="noopener">参考</a></p>
+<h3 id="改变LayoutParams"><a href="#改变LayoutParams" class="headerlink" title="改变LayoutParams"></a>改变LayoutParams</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) text.getLayoutParams();</span><br><span class="line">     params.width += 100;</span><br><span class="line">     params.leftMargin += 100;</span><br><span class="line">     text.requestLayout();</span><br></pre></td></tr></table></figure>
+<h3 id="Scroller"><a href="#Scroller" class="headerlink" title="Scroller"></a>Scroller</h3><p>先来看看官方给出的使用样例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">private Scroller mScroller = new Scroller(context);</span><br><span class="line">  ...</span><br><span class="line">  public void zoomIn() &#123;</span><br><span class="line">      // Revert any animation currently in progress</span><br><span class="line">      mScroller.forceFinished(true);</span><br><span class="line">      // Start scrolling by providing a starting point and</span><br><span class="line">      // the distance to travel</span><br><span class="line">      mScroller.startScroll(0, 0, 100, 0);</span><br><span class="line">      // Invalidate to request a redraw</span><br><span class="line">      invalidate();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用起来非常简单，我们一个一个方法往下分析<br>先来看看startScroll()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public void startScroll(int startX, int startY, int dx, int dy, int duration) &#123;</span><br><span class="line">      mMode = SCROLL_MODE;</span><br><span class="line">      mFinished = false;</span><br><span class="line">      mDuration = duration;</span><br><span class="line">      mStartTime = AnimationUtils.currentAnimationTimeMillis();</span><br><span class="line">      mStartX = startX;</span><br><span class="line">      mStartY = startY;</span><br><span class="line">      mFinalX = startX + dx;</span><br><span class="line">      mFinalY = startY + dy;</span><br><span class="line">      mDeltaX = dx;</span><br><span class="line">      mDeltaY = dy;</span><br><span class="line">      mDurationReciprocal = 1.0f / (float) mDuration;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>startScroll()方法中保存了滑动起点，滑动距离，滑动时间等等这种参数，但是未见具体滑动代码，真正使view产生滑动效果的是invalidate()<br>invalidate()方法会导致view重绘，draw方法中调用computeScroll(),computeScroll()是一个空方法需要自己重写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line"> public void computeScroll() &#123;</span><br><span class="line">     if (mScroller.computeScrollOffset()) &#123;</span><br><span class="line">         scrollTo(mScroller.getCurrX(), mScroller.getCurrY());</span><br><span class="line">         invalidate();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>向Scroller获取scrollX，scrollY,通过scrollTo()进行滑动，然后再调用invalidate(),重复上述步骤，循环调用直到滑动结束，至于循环多少次呢，是由computeScrollOffset()决定的。<br>下面仅贴出关键代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">   * Call this when you want to know the new location.  If it returns true,</span><br><span class="line">   * the animation is not yet finished.</span><br><span class="line">   */ </span><br><span class="line">  public boolean computeScrollOffset() &#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">      int timePassed = (int)(AnimationUtils.currentAnimationTimeMillis() - mStartTime);</span><br><span class="line">  </span><br><span class="line">      if (timePassed &lt; mDuration) &#123;</span><br><span class="line">          switch (mMode) &#123;</span><br><span class="line">          case SCROLL_MODE:</span><br><span class="line">              final float x = mInterpolator.getInterpolation(timePassed * mDurationReciprocal);</span><br><span class="line">              mCurrX = mStartX + Math.round(x * mDeltaX);</span><br><span class="line">              mCurrY = mStartY + Math.round(x * mDeltaY);</span><br><span class="line">              break;</span><br><span class="line">         ...</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      else &#123;</span><br><span class="line">          mCurrX = mFinalX;</span><br><span class="line">          mCurrY = mFinalY;</span><br><span class="line">          mFinished = true;</span><br><span class="line">      &#125;</span><br><span class="line">      return true;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到是通过当前时间和滑动开始时间的差值所占滑动时间的份数来计算的，返回false则滑动结束，否则继续循环。</p>
+<h2 id="View的事件分发机制"><a href="#View的事件分发机制" class="headerlink" title="View的事件分发机制"></a>View的事件分发机制</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/kotlin总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -858,7 +1028,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
