@@ -398,6 +398,14 @@
 <li>2 接着在内核空间开辟一块内核缓存区，建立内核缓存区和内核中数据接收缓存区之间的映射关系，以及内核中数据接收缓存区和接收进程用户空间地址的映射关系；</li>
 <li>3 发送方进程通过系统调用 copy_from_user() 将数据 copy 到内核中的内核缓存区，由于内核缓存区和接收进程的用户空间存在内存映射，因此也就相当于把数据发送到了接收进程的用户空间，这样便完成了一次进程间的通信。<br>如下图：<br><img src="https://s2.ax1x.com/2019/12/28/lmDiGt.png" alt="图片"></li>
 </ul>
+<h2 id="Binder通信过程"><a href="#Binder通信过程" class="headerlink" title="Binder通信过程"></a>Binder通信过程</h2><p>一次完整的进程间通信必然至少包含两个进程，通常我们称通信的双方分别为客户端进程（Client）和服务端进程（Server），由于进程隔离机制的存在，通信双方必然需要借助 Binder 来实现。</p>
+<h3 id="互联网通信过程："><a href="#互联网通信过程：" class="headerlink" title="互联网通信过程："></a>互联网通信过程：</h3><p>包括 Client、Server、ServiceManager、Binder 驱动。其中 Client、Server、Service Manager 运行在用户空间，Binder 驱动运行在内核空间。其中 Service Manager 和 Binder 驱动由系统提供，而 Client、Server 由应用程序来实现。Client、Server 和 ServiceManager 均是通过系统调用 open、mmap 和 ioctl 来访问设备文件 /dev/binder，从而实现与 Binder 驱动的交互来间接的实现跨进程通信。<br>如下图：<br><img src="https://s2.ax1x.com/2019/12/29/lus9jx.md.png" alt="图片"><br>Client、Server、ServiceManager、Binder 驱动这几个组件在通信过程中扮演的角色就如同互联网中服务器（Server）、客户端（Client）、DNS域名服务器（ServiceManager）以及路由器（Binder 驱动）之间的关系。<br>通常我们访问一个网页的步骤是这样的：首先在浏览器输入一个地址，如 <a href="http://www.google.com" target="_blank" rel="noopener">www.google.com</a> 然后按下回车键。但是并没有办法通过域名地址直接找到我们要访问的服务器，因此需要首先访问 DNS 域名服务器，域名服务器中保存了 <a href="http://www.google.com" target="_blank" rel="noopener">www.google.com</a> 对应的 ip 地址 10.249.23.13，然后通过这个 ip 地址才能放到到 <a href="http://www.google.com" target="_blank" rel="noopener">www.google.com</a> 对应的服务器。<br><img src="https://s2.ax1x.com/2019/12/29/lus2x1.png" alt="图片"></p>
+<h3 id="Binder通信过程："><a href="#Binder通信过程：" class="headerlink" title="Binder通信过程："></a>Binder通信过程：</h3><p>大致能总结出 Binder 通信过程：</p>
+<ul>
+<li>1 首先，一个进程使用 BINDER_SET_CONTEXT_MGR 命令通过 Binder 驱动将自己注册成为 ServiceManager；</li>
+<li>2 Server 通过驱动向 ServiceManager 中注册 Binder（Server 中的 Binder 实体），表明可以对外提供服务。驱动为这个 Binder 创建位于内核中的实体节点以及 ServiceManager 对实体的引用，将名字以及新建的引用打包传给 ServiceManager，ServiceManger 将其填入查找表。</li>
+<li>3 Client 通过名字，在 Binder 驱动的帮助下从 ServiceManager 中获取到对 Binder 实体的引用，通过这个引用就能实现和 Server 进程的通信。<br><img src="https://s2.ax1x.com/2019/12/29/luy3sx.png" alt="图片"></li>
+</ul>
 
           
         
