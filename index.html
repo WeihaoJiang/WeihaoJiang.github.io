@@ -262,6 +262,180 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/30/零零散散/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Coding_dog">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding_dog的成长笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/30/零零散散/" itemprop="url">零零散散</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-30T00:00:00+08:00">
+                2019-12-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/12/30/零零散散/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/30/零零散散/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="LeakCanary是如何检测到内存泄漏的？"><a href="#LeakCanary是如何检测到内存泄漏的？" class="headerlink" title="LeakCanary是如何检测到内存泄漏的？"></a>LeakCanary是如何检测到内存泄漏的？</h2><p>LeakCanay的入口是在application的onCreate()方法中声明的，其实用的就是Application的ActivityLifecycleCallbacks回调接口监听所有activity的onDestory()的，在这个方法进行RefWatcher.watch对这个对象进行监控。具体是这样做的，把activity对象封装成带key值和带引用队列(ReferenceQueue)的KeyedWeakReference对象，然后GC看弱引用对象有没有回收，没有回收的话就怀疑是泄漏了，需要二次确认。然后生成HPROF文件，分析这个快照文件有没有存在带这个key值的泄漏对象，如果没有，那么没有泄漏，否则找出最短路径，打印给我们，我们就能够找到这个泄漏对象了。</p>
+<h2 id="如何判断app在前台还是后台"><a href="#如何判断app在前台还是后台" class="headerlink" title="如何判断app在前台还是后台?"></a>如何判断app在前台还是后台?</h2><p>Application类里有ActivityLifecycleCallbacks回调接口,可以监听Application的生命周期，通常执行onstart()视为前台，执行onStop()视为后台 </p>
+<h2 id="WindowManager-addView-，View-getParent-分别对应？"><a href="#WindowManager-addView-，View-getParent-分别对应？" class="headerlink" title="WindowManager.addView()，View.getParent()分别对应？"></a>WindowManager.addView()，View.getParent()分别对应？</h2><p><img src="https://upload-images.jianshu.io/upload_images/3455436-7d4de90c2048bff4.png?imageMogr2/auto-orient/strip|imageView2/2/w/446/format/webp" alt="图片"></p>
+<p>WindowManager.addView()是将DecorView作为根布局加入到PhoneWindow中去，而View.getParent()指得是普通子view的父view</p>
+<h2 id="Serializable和Parcelable的区别？"><a href="#Serializable和Parcelable的区别？" class="headerlink" title="Serializable和Parcelable的区别？"></a>Serializable和Parcelable的区别？</h2><ul>
+<li>1 效率不同，两者最大的区别在于 存储媒介的不同，Serializable会使用反射，这个过程中使用 I/O 读写存储在硬盘上，而 Parcelable 不需要用反射，直接 在内存中读写。很明显，内存的读写速度通常大于 IO 读写，所以在 Android 中传递数据优先选择 Parcelable。</li>
+<li>2 用法不同<br>Serializable使用简单<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class TestSerializable implements Serializable &#123;</span><br><span class="line">    String msg;</span><br><span class="line">    </span><br><span class="line">    List&lt;ItemBean&gt; datas;</span><br><span class="line">    </span><br><span class="line">    public static class ItemBean implements Serializable&#123;</span><br><span class="line">        String name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>Parcelable较为复杂<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">public class TestParcelable implements Parcelable &#123;</span><br><span class="line">    String msg;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int describeContents() &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void writeToParcel(Parcel dest, int flags) &#123;</span><br><span class="line">        dest.writeString(this.msg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    TestParcelable(String msg) &#123;</span><br><span class="line">        this.msg = msg;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private TestParcelable(Parcel in) &#123;</span><br><span class="line">        this.msg = in.readString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static final Creator&lt;TestParcelable&gt; CREATOR = new Creator&lt;TestParcelable&gt;() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public TestParcelable createFromParcel(Parcel source) &#123;</span><br><span class="line">            return new TestParcelable(source);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public TestParcelable[] newArray(int size) &#123;</span><br><span class="line">            return new TestParcelable[size];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Android里面为什么要设计出Bundle而不是直接用Map结构？"><a href="#Android里面为什么要设计出Bundle而不是直接用Map结构？" class="headerlink" title="Android里面为什么要设计出Bundle而不是直接用Map结构？"></a>Android里面为什么要设计出Bundle而不是直接用Map结构？</h3><ul>
+<li>1 是在Android中如果使用Intent来携带数据的话，需要数据是基本类型或者是可序列化类型，HashMap使用Serializable进行序列化，而Bundle则是使用Parcelable进行序列化。而在Android平台中，更推荐使用Parcelable实现序列化，虽然写法复杂，但是开销更小，所以为了更加快速的进行数据的序列化和反序列化，系统封装了Bundle类，方便我们进行数据的传输。</li>
+<li>2 Bundle内部是由ArrayMap实现的，ArrayMap的内部实现是两个数组，一个int数组是存储对象数据对应下标，一个对象数组保存key和value，内部使用二分法对key进行排序，所以在添加、删除、查找数据的时候，都会使用二分法查找，只适合于小数据量操作，如果在数据量比较大的情况下，那么它的性能将退化。而HashMap内部则是数组+链表结构，所以在数据量较少的时候，HashMap的Entry Array比ArrayMap占用更多的内存。因为使用Bundle的场景大多数为小数据量，我没见过在两个Activity之间传递10个以上数据的场景，所以相比之下，在这种情况下使用ArrayMap保存数据，在操作速度和内存占用上都具有优势，因此使用Bundle来传递数据，可以保证更快的速度和更少的内存占用。</li>
+</ul>
+<h2 id="Java自动装箱和自动拆箱"><a href="#Java自动装箱和自动拆箱" class="headerlink" title="Java自动装箱和自动拆箱"></a>Java自动装箱和自动拆箱</h2><p>装箱就是自动将基本数据类型转换为包装器类型；拆箱就是 自动将包装器类型转换为基本数据类型。<br>举例：int是基本数据类型，Integer是包装器类型，看Integer.valueOf ( int i ) 方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static Integer valueOf(int i) &#123;       </span><br><span class="line">        if (i &gt;= -128 &amp;&amp; i &lt;= 127)</span><br><span class="line">            return IntegerCache.cache[i + 127];</span><br><span class="line">            //如果i的值大于-128小于127则返回一个缓冲区中的一个Integer对象</span><br><span class="line">        return new Integer(i);</span><br><span class="line">        //否则返回 new 一个Integer 对象</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>原来IntegerCache 类在初始化的时候，生成了一个大小为 256 的integer 类型的常量池，并且integer.val 的值从-128-127，当我们运行 Integer c=a ;时，如果 -128&lt;=a&lt;=127时，不会再生成新的integer对象，直接从常量池中找到对应的已经初始化后的对象。当 a&lt;-128||a&gt;127时会生成一个新的对象。</p>
+<h2 id="synchronized与volatile"><a href="#synchronized与volatile" class="headerlink" title="synchronized与volatile"></a>synchronized与volatile</h2><h3 id="synchronized："><a href="#synchronized：" class="headerlink" title="synchronized："></a>synchronized：</h3><p>同步块大家都比较熟悉，通过 synchronized 关键字来实现，所有加上synchronized 和 块语句，在多线程访问的时候，同一时刻只能有一个线程能够用<br>synchronized 修饰的方法 或者 代码块。</p>
+<h3 id="volatile："><a href="#volatile：" class="headerlink" title="volatile："></a>volatile：</h3><p>用volatile修饰的变量，线程在每次使用变量的时候，都会去读主内存，取变量修改后的最新的值。</p>
+<h4 id="JVM在运行时候的内存分配过程："><a href="#JVM在运行时候的内存分配过程：" class="headerlink" title="JVM在运行时候的内存分配过程："></a>JVM在运行时候的内存分配过程：</h4><p>有一个内存区域是jvm虚拟机栈，每一个线程运行时都有一个线程栈，<br>线程栈保存了线程运行时候变量值信息。当线程访问某一个对象时候值的时候，首先通过对象的引用找到对应在堆内存的变量的值，然后把堆内存<br>变量的具体值load到线程本地内存中，建立一个变量副本，之后线程就不再和对象在堆内存变量值有任何关系，而是直接修改副本变量的值，<br>在修改完之后的某一个时刻（线程退出之前），自动把线程变量副本的值回写到对象在堆中变量。这样在堆中的对象的值就产生变化了。<br><img src="https://images0.cnblogs.com/blog/531072/201310/11172340-1b4ffc1abd6047798761edf5c5070ec1.jpg" alt="图片"><br>小结：加上volatile关键字，强制线程每次读取该值的时候都去“主内存”中取值。保证了线程安全。</p>
+<h2 id="requestLayout、invalidate与postInvalidate区别"><a href="#requestLayout、invalidate与postInvalidate区别" class="headerlink" title="requestLayout、invalidate与postInvalidate区别"></a>requestLayout、invalidate与postInvalidate区别</h2><h3 id="requestLayout"><a href="#requestLayout" class="headerlink" title="requestLayout:"></a>requestLayout:</h3><p>从方法名字可以知道，“请求布局”，那就是说，如果调用了这个方法，那么对于一个子View来说，应该会重新进行布局流程。但是，真实情况略有不同，如果子View调用了这个方法，其实会从View树重新进行一次测量、布局、绘制这三个流程，最终就会显示子View的最终情况。</p>
+<h3 id="invalidate"><a href="#invalidate" class="headerlink" title="invalidate:"></a>invalidate:</h3><p>view的invalidate不会导致ViewRootImpl的invalidate被调用，而是递归调用父view的invalidateChildInParent，直到ViewRootImpl的invalidateChildInParent，然后触发peformTraversals，会导致当前view被重绘,由于mLayoutRequested为false，不会导致onMeasure和onLayout被调用，而OnDraw会被调用</p>
+<h3 id="postInvalidate"><a href="#postInvalidate" class="headerlink" title="postInvalidate:"></a>postInvalidate:</h3><p>postInvalidate是在非UI线程中调用，invalidate则是在UI线程中调用。</p>
+<p><img src="https://s2.ax1x.com/2019/12/31/l1prYq.png" alt="图片"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/28/Binder机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -848,7 +1022,11 @@
 <h3 id="关于扩容"><a href="#关于扩容" class="headerlink" title="关于扩容"></a>关于扩容</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">threshold = (int)(capacity * loadFactor);</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">void addEntry(int hash, K key, V value, int bucketIndex) &#123;</span><br><span class="line">        if ((size &gt;= threshold) &amp;&amp; (null != table[bucketIndex])) &#123;</span><br><span class="line">            resize(2 * table.length);//当size超过临界阈值threshold，并且即将发生哈希冲突时进行扩容</span><br><span class="line">            hash = (null != key) ? hash(key) : 0;</span><br><span class="line">            bucketIndex = indexFor(hash, table.length);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        createEntry(hash, key, value, bucketIndex);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>在put操作时，即向容器中添加元素时，判断当前容器中元素的个数是否达到阈值（当前数组长度乘以负载因子的值）的时候，就要自动扩容了，就是新建一个长度为之前数组2倍的新的数组，然后将当前的Entry数组中的元素全部传输过去，扩容后的新数组长度为之前的2倍，所以扩容相对来说是个耗资源的操作。</p>
-<h4 id="扩容负载因子为什么是0-75"><a href="#扩容负载因子为什么是0-75" class="headerlink" title="扩容负载因子为什么是0.75"></a>扩容负载因子为什么是0.75</h4><p>-1.如果负载因子为0.5甚至更低的可能的话，最后得到的临时阈值明显会很小，这样的情况就会造成分配的内存的浪费，存在多余的没用的内存空间，也不满足了哈希表均匀分布的情况。<br>-2.如果负载因子达到了1的情况，也就是Entry数组存满了才发生扩容，这样会出现大量的哈希冲突的情况，出现链表过长，因此造成get查询数据的效率。<br>-3.因此选择了0.5~1的折中数也就是0.75，均衡解决了上面出现的情况,是一种平衡了时间空间开销的方法</p>
+<h4 id="扩容负载因子为什么是0-75"><a href="#扩容负载因子为什么是0-75" class="headerlink" title="扩容负载因子为什么是0.75"></a>扩容负载因子为什么是0.75</h4><ul>
+<li>1 如果负载因子为0.5甚至更低的可能的话，最后得到的临时阈值明显会很小，这样的情况就会造成分配的内存的浪费，存在多余的没用的内存空间，也不满足了哈希表均匀分布的情况。</li>
+<li>2 如果负载因子达到了1的情况，也就是Entry数组存满了才发生扩容，这样会出现大量的哈希冲突的情况，出现链表过长，因此造成get查询数据的效率。</li>
+<li>3 因此选择了0.5~1的折中数也就是0.75，均衡解决了上面出现的情况,是一种平衡了时间空间开销的方法</li>
+</ul>
 <h3 id="HashMap的数据结构Java7和Java8及之后有所区别"><a href="#HashMap的数据结构Java7和Java8及之后有所区别" class="headerlink" title="HashMap的数据结构Java7和Java8及之后有所区别"></a>HashMap的数据结构Java7和Java8及之后有所区别</h3><p>Java7是数组+链表，当发生哈希冲突时以链表的形式存储，链表中存储格式是key-value键值对<br><img src="https://upload-images.jianshu.io/upload_images/8031371-44ed77820f471459.png?imageMogr2/auto-orient/strip|imageView2/2/w/883/format/webp" alt="图片"><br>Java8是数组+链表+红黑树，当发生哈希冲突时以链表的形式存储，当链表长度大于等于8时，以红黑树的形式存储<br><img src="https://upload-images.jianshu.io/upload_images/8031371-b057a459fa1cbccf.png?imageMogr2/auto-orient/strip|imageView2/2/w/1112/format/webp" alt="图片"></p>
 <h4 id="为什么链表长度大于等于8时转为红黑树"><a href="#为什么链表长度大于等于8时转为红黑树" class="headerlink" title="为什么链表长度大于等于8时转为红黑树"></a>为什么链表长度大于等于8时转为红黑树</h4><p>这个8的设定很有讲究，是符合泊松分布概率统计学的，即经过概率分析认为超过8的概率很小，对泊松分布不太懂也没关系，在源码注释中有这么一段<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">* factorial(k)). The first values are:</span><br><span class="line">    *</span><br><span class="line">    * 0:    0.60653066</span><br><span class="line">    * 1:    0.30326533</span><br><span class="line">    * 2:    0.07581633</span><br><span class="line">    * 3:    0.01263606</span><br><span class="line">    * 4:    0.00157952</span><br><span class="line">    * 5:    0.00015795</span><br><span class="line">    * 6:    0.00001316</span><br><span class="line">    * 7:    0.00000094</span><br><span class="line">    * 8:    0.00000006</span><br><span class="line">    * more: less than 1 in ten million</span><br></pre></td></tr></table></figure></p>
 <p>官方给的概率，可以说达到8就很难了，所以实际运用中存成红黑树的情况并不多</p>
@@ -871,6 +1049,8 @@
 <li>2 Android中，数据长度小于千时，用于替换HashMap,数据条数特别多的时候，效率会低于HashMap，因为它是基于二分查找去找数据的</li>
 <li>3 占用内存空间小，没有额外的Entry对象</li>
 </ul>
+<h2 id="ArrayMap"><a href="#ArrayMap" class="headerlink" title="ArrayMap"></a>ArrayMap</h2><p>ArrayMap是一个键值对映射的数据结构，它设计上更多的是考虑内存的优化，内部是使用两个数组进行数据存储，一个磁盘记录键的哈希值，另外一个数组记录Value值，它和SparseArray一样，也会对key使用二分法进行从小到大排序，区别是ArrayMap的key是哈希值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//构造方法</span><br><span class="line">public class ArrayMap&lt;K, V&gt; extends SimpleArrayMap&lt;K, V&gt; implements Map&lt;K, V&gt; &#123;</span><br><span class="line">    MapCollections&lt;K, V&gt; mCollections;</span><br><span class="line"></span><br><span class="line">    public ArrayMap() &#123;</span><br><span class="line">        super();</span><br><span class="line">    &#125;</span><br><span class="line">//父类</span><br><span class="line"> int[] mHashes;</span><br><span class="line">    Object[] mArray;</span><br><span class="line">    public SimpleArrayMap() &#123;</span><br><span class="line">        mHashes = ContainerHelpers.EMPTY_INTS;</span><br><span class="line">        mArray = ContainerHelpers.EMPTY_OBJECTS;</span><br><span class="line">        mSize = 0;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>总结:<br>因为ArrayMap与SparseArray内部都使用了二分法进行从小到大的排序，所以当数据量很大的时候，效率至少降低一半，所以谷歌推荐数据量在千级以内时使用ArrayMap与SparseArray，数据量非常大时使用HashMap</p>
 
           
         
@@ -1689,7 +1869,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1700,7 +1880,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1711,7 +1891,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
