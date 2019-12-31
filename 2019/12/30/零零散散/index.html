@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="Coding_dog的成长笔记">
 <meta property="og:description" content="LeakCanary是如何检测到内存泄漏的？LeakCanay的入口是在application的onCreate()方法中声明的，其实用的就是Application的ActivityLifecycleCallbacks回调接口监听所有activity的onDestory()的，在这个方法进行RefWatcher.watch对这个对象进行监控。具体是这样做的，把activity对象封装成带key值和">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3455436-7d4de90c2048bff4.png?imageMogr2/auto-orient/strip|imageView2/2/w/446/format/webp">
-<meta property="og:image" content="https://images0.cnblogs.com/blog/531072/201310/11172340-1b4ffc1abd6047798761edf5c5070ec1.jpg">
+<meta property="og:image" content="https://s2.ax1x.com/2019/12/31/l1g5Z9.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/12/31/l1cs1O.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/12/31/l1prYq.png">
-<meta property="og:updated_time" content="2019-12-31T06:30:19.878Z">
+<meta property="og:updated_time" content="2019-12-31T06:42:33.648Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="零零散散">
 <meta name="twitter:description" content="LeakCanary是如何检测到内存泄漏的？LeakCanay的入口是在application的onCreate()方法中声明的，其实用的就是Application的ActivityLifecycleCallbacks回调接口监听所有activity的onDestory()的，在这个方法进行RefWatcher.watch对这个对象进行监控。具体是这样做的，把activity对象封装成带key值和">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/3455436-7d4de90c2048bff4.png?imageMogr2/auto-orient/strip|imageView2/2/w/446/format/webp">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/12/31/l1g5Z9.png">
 
 
 
@@ -368,7 +368,7 @@
       
         <h2 id="LeakCanary是如何检测到内存泄漏的？"><a href="#LeakCanary是如何检测到内存泄漏的？" class="headerlink" title="LeakCanary是如何检测到内存泄漏的？"></a>LeakCanary是如何检测到内存泄漏的？</h2><p>LeakCanay的入口是在application的onCreate()方法中声明的，其实用的就是Application的ActivityLifecycleCallbacks回调接口监听所有activity的onDestory()的，在这个方法进行RefWatcher.watch对这个对象进行监控。具体是这样做的，把activity对象封装成带key值和带引用队列(ReferenceQueue)的KeyedWeakReference对象，然后GC看弱引用对象有没有回收，没有回收的话就怀疑是泄漏了，需要二次确认。然后生成HPROF文件，分析这个快照文件有没有存在带这个key值的泄漏对象，如果没有，那么没有泄漏，否则找出最短路径，打印给我们，我们就能够找到这个泄漏对象了。</p>
 <h2 id="如何判断app在前台还是后台"><a href="#如何判断app在前台还是后台" class="headerlink" title="如何判断app在前台还是后台?"></a>如何判断app在前台还是后台?</h2><p>Application类里有ActivityLifecycleCallbacks回调接口,可以监听Application的生命周期，通常执行onstart()视为前台，执行onStop()视为后台 </p>
-<h2 id="WindowManager-addView-，View-getParent-分别对应？"><a href="#WindowManager-addView-，View-getParent-分别对应？" class="headerlink" title="WindowManager.addView()，View.getParent()分别对应？"></a>WindowManager.addView()，View.getParent()分别对应？</h2><p><img src="https://upload-images.jianshu.io/upload_images/3455436-7d4de90c2048bff4.png?imageMogr2/auto-orient/strip|imageView2/2/w/446/format/webp" alt="图片"></p>
+<h2 id="WindowManager-addView-，View-getParent-分别对应？"><a href="#WindowManager-addView-，View-getParent-分别对应？" class="headerlink" title="WindowManager.addView()，View.getParent()分别对应？"></a>WindowManager.addView()，View.getParent()分别对应？</h2><p><img src="https://s2.ax1x.com/2019/12/31/l1g5Z9.png" alt="图片"></p>
 <p>WindowManager.addView()是将DecorView作为根布局加入到PhoneWindow中去，而View.getParent()指得是普通子view的父view</p>
 <h2 id="Serializable和Parcelable的区别？"><a href="#Serializable和Parcelable的区别？" class="headerlink" title="Serializable和Parcelable的区别？"></a>Serializable和Parcelable的区别？</h2><ul>
 <li>1 效率不同，两者最大的区别在于 存储媒介的不同，Serializable会使用反射，这个过程中使用 I/O 读写存储在硬盘上，而 Parcelable 不需要用反射，直接 在内存中读写。很明显，内存的读写速度通常大于 IO 读写，所以在 Android 中传递数据优先选择 Parcelable。</li>
@@ -384,7 +384,7 @@
 <p>原来IntegerCache 类在初始化的时候，生成了一个大小为 256 的integer 类型的常量池，并且integer.val 的值从-128-127，当我们运行 Integer c=a ;时，如果 -128&lt;=a&lt;=127时，不会再生成新的integer对象，直接从常量池中找到对应的已经初始化后的对象。当 a&lt;-128||a&gt;127时会生成一个新的对象。</p>
 <h2 id="synchronized与volatile"><a href="#synchronized与volatile" class="headerlink" title="synchronized与volatile"></a>synchronized与volatile</h2><h3 id="synchronized："><a href="#synchronized：" class="headerlink" title="synchronized："></a>synchronized：</h3><p>同步块大家都比较熟悉，通过 synchronized 关键字来实现，所有加上synchronized 和 块语句，在多线程访问的时候，同一时刻只能有一个线程能够用<br>synchronized 修饰的方法 或者 代码块。</p>
 <h3 id="volatile："><a href="#volatile：" class="headerlink" title="volatile："></a>volatile：</h3><p>用volatile修饰的变量，线程在每次使用变量的时候，都会去读主内存，取变量修改后的最新的值。</p>
-<h4 id="JVM在运行时候的内存分配过程："><a href="#JVM在运行时候的内存分配过程：" class="headerlink" title="JVM在运行时候的内存分配过程："></a>JVM在运行时候的内存分配过程：</h4><p>有一个内存区域是jvm虚拟机栈，每一个线程运行时都有一个线程栈，<br>线程栈保存了线程运行时候变量值信息。当线程访问某一个对象时候值的时候，首先通过对象的引用找到对应在堆内存的变量的值，然后把堆内存<br>变量的具体值load到线程本地内存中，建立一个变量副本，之后线程就不再和对象在堆内存变量值有任何关系，而是直接修改副本变量的值，<br>在修改完之后的某一个时刻（线程退出之前），自动把线程变量副本的值回写到对象在堆中变量。这样在堆中的对象的值就产生变化了。<br><img src="https://images0.cnblogs.com/blog/531072/201310/11172340-1b4ffc1abd6047798761edf5c5070ec1.jpg" alt="图片"><br>小结：加上volatile关键字，强制线程每次读取该值的时候都去“主内存”中取值。保证了线程安全。</p>
+<h4 id="JVM在运行时候的内存分配过程："><a href="#JVM在运行时候的内存分配过程：" class="headerlink" title="JVM在运行时候的内存分配过程："></a>JVM在运行时候的内存分配过程：</h4><p>有一个内存区域是jvm虚拟机栈，每一个线程运行时都有一个线程栈，<br>线程栈保存了线程运行时候变量值信息。当线程访问某一个对象时候值的时候，首先通过对象的引用找到对应在堆内存的变量的值，然后把堆内存<br>变量的具体值load到线程本地内存中，建立一个变量副本，之后线程就不再和对象在堆内存变量值有任何关系，而是直接修改副本变量的值，<br>在修改完之后的某一个时刻（线程退出之前），自动把线程变量副本的值回写到对象在堆中变量。这样在堆中的对象的值就产生变化了。<br><img src="https://s2.ax1x.com/2019/12/31/l1cs1O.png" alt="图片"><br>小结：加上volatile关键字，强制线程每次读取该值的时候都去“主内存”中取值。保证了线程安全。</p>
 <h2 id="requestLayout、invalidate与postInvalidate区别"><a href="#requestLayout、invalidate与postInvalidate区别" class="headerlink" title="requestLayout、invalidate与postInvalidate区别"></a>requestLayout、invalidate与postInvalidate区别</h2><h3 id="requestLayout"><a href="#requestLayout" class="headerlink" title="requestLayout:"></a>requestLayout:</h3><p>从方法名字可以知道，“请求布局”，那就是说，如果调用了这个方法，那么对于一个子View来说，应该会重新进行布局流程。但是，真实情况略有不同，如果子View调用了这个方法，其实会从View树重新进行一次测量、布局、绘制这三个流程，最终就会显示子View的最终情况。</p>
 <h3 id="invalidate"><a href="#invalidate" class="headerlink" title="invalidate:"></a>invalidate:</h3><p>view的invalidate不会导致ViewRootImpl的invalidate被调用，而是递归调用父view的invalidateChildInParent，直到ViewRootImpl的invalidateChildInParent，然后触发peformTraversals，会导致当前view被重绘,由于mLayoutRequested为false，不会导致onMeasure和onLayout被调用，而OnDraw会被调用</p>
 <h3 id="postInvalidate"><a href="#postInvalidate" class="headerlink" title="postInvalidate:"></a>postInvalidate:</h3><p>postInvalidate是在非UI线程中调用，invalidate则是在UI线程中调用。</p>
