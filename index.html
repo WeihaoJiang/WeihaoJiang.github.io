@@ -262,6 +262,186 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/24/TCP,UDP总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Coding_dog">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding_dog的成长笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/24/TCP,UDP总结/" itemprop="url">TCP,UDP知识总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-24T00:00:00+08:00">
+                2020-02-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/02/24/TCP,UDP总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/24/TCP,UDP总结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="TCP-UDP的对比"><a href="#TCP-UDP的对比" class="headerlink" title="TCP,UDP的对比"></a>TCP,UDP的对比</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h4 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h4><p>TCP（Transmission Control Protocol，传输控制协议），是一种面向连接的，基于窗口滑动的可靠传输协议，提供可靠（无差错、不丢失、不重复、按顺序）的字节流数据传输服务。在传输效率和可靠性之间选择了后者，所以有开销大、传输速度慢的缺点。</p>
+<h4 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h4><p>UDP（User Datagram Protocol，用户数据报协议），是一种无连接的非可靠传输层协议。UDP 不提供数据包分组、组装，不能对数据段进行排序，所以 UDP 数据段的首部非常简单。换句话说，当数据段发送出去之后，发送方是无法得知其是否完整且安全的到达了接收方的。这样的传输机制决定了它的最大优点就是快，同时也决定了它最大的缺点不可靠、不稳定。</p>
+<h3 id="两者对比"><a href="#两者对比" class="headerlink" title="两者对比"></a>两者对比</h3><h4 id="TCP-1"><a href="#TCP-1" class="headerlink" title="TCP:"></a>TCP:</h4><ul>
+<li>1 面向连接：需要通过三次握手建立连接。</li>
+<li>2 点对点：一条 TCP 连接只能连接两个端点，一对一通信。</li>
+<li>3 字节流传输：TCP 会将数据当作字节流进行处理，不尝试理解所传输的数据含义，仅把数据看作一连串的字节序列。</li>
+<li>4 可靠传输：使用窗口滑动的流量控制和拥塞控制</li>
+<li>5 首部开销大：最少20字节，最大60字节</li>
+</ul>
+<h4 id="UDP-1"><a href="#UDP-1" class="headerlink" title="UDP:"></a>UDP:</h4><ul>
+<li>1 无连接</li>
+<li>2 支持单传，多传，广播（一对一，一对多，多对一，多对多）</li>
+<li>3 对应用层交付的报文直接打包：不提供数据包分组、组装，不能对数据段进行排序</li>
+<li>4 不可靠：尽最大努力交付，不使用流量控制和拥塞控制</li>
+<li>5 首部开销小：仅8个字节</li>
+</ul>
+<h2 id="TCP-2"><a href="#TCP-2" class="headerlink" title="TCP"></a>TCP</h2><h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><p>TCP 提供面向有连接的通信传输。面向有连接是指在数据通信开始之前先做好两端之间的准备工作。所谓三次握手是指建立一个 TCP 连接时需要客户端和服务器端总共发送三个包以确认连接的建立。在socket编程中，这一过程由客户端执行connect来触发。<br><img src="https://s2.ax1x.com/2020/02/23/31cCgP.jpg" alt="图片"></p>
+<ul>
+<li>1 第一次握手：客户端将标志位SYN置为1（SYN为1时不能携带数据），随机产生一个值seq=x，作为TCP客户进程的初始序号，并将该数据包发送给服务器端，客户端进入SYN_SENT同步已发送状态，等待服务器端确认。</li>
+<li>2 第二次握手：服务器端收到数据包后由标志位SYN=1知道客户端请求建立连接，服务器端将标志位SYN和ACK都置为1，表明这是一个TCP确认请求报文，ack=x+1,表明对客户进程初始序号的确认，随机产生一个值seq=y作为服务器进程的初始序号，并将该数据包发送给客户端以确认连接请求，服务器端进入SYN_RCVD同步已接收状态。</li>
+<li>3 第三次握手：客户端收到确认后，检查ack是否为x+1，ACK是否为1，如果正确则将标志位ACK置为1，ack=y+1，seq=x+1并将该数据包发送给服务器端，服务器端检查ack是否为y+1，ACK是否为1，如果正确则连接建立成功，客户端和服务器端进入ESTABLISHED连接已建立状态，完成三次握手，随后客户端与服务器端之间可以开始传输数据了。</li>
+</ul>
+<h4 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h4><p>四次挥手即终止TCP连接，就是指断开一个TCP连接时，需要客户端和服务端总共发送4个包以确认连接的断开。在socket编程中，这一过程由客户端或服务端任一方执行close来触发。<br>由于TCP连接是全双工的，因此，每个方向都必须要单独进行关闭，这一原则是当一方完成数据发送任务后，发送一个FIN来终止这一方向的连接，收到一个FIN只是意味着这一方向上没有数据流动了，即不会再收到数据了，但是在这个TCP连接上仍然能够发送数据，直到这一方向也发送了FIN。首先进行关闭的一方将执行主动关闭，而另一方则执行被动关闭。<br><img src="https://s2.ax1x.com/2020/02/23/33uXLD.png" alt="图片"></p>
+<ul>
+<li>1 第一次挥手：客户端发送一个FIN=1，ACK=1，用来关闭客户端到服务器端的数据传送,seq=u，u为之前客户端传送的数据的最后一个字节序号加1，ack=v,v为之前客户端收到的数据的最后一个字节序号加1，客户端进入FIN_WAIT_1终止等待1状态。意思是说”我客户端没有数据要发给你了”，但是如果你服务器端还有数据没有发送完成，则不必急着关闭连接，可以继续发送数据。</li>
+<li>2 第二次挥手：服务器端收到FIN后进入CLOSE-WAIT关闭等待状态，ACK=1,seq=v,v表明之前服务器传送的数据的最后一个字节序号加1，ack=u+1(对收到客户端报文的确认)，对客户端，告诉客户端，你的请求我收到了，但是我还没准备好，请继续你等我的消息。这个时候客户端就进入FIN_WAIT_2 终止等待2状态，继续等待服务器端的FIN报文。</li>
+<li>3 第三次挥手：当服务器端确定数据已发送完成，则向客户端发送FIN=1，ACK=1,seq=w(半关闭状态下可能又发送了数据),ack=u+1（对收到客户端报文的重复确认）报文，告诉客户端，好了，我这边数据发完了，准备好关闭连接了。服务器端进入LAST_ACK最后确认状态。</li>
+<li>4 第四次挥手：客户端收到报文后，就知道可以关闭连接了，但是他还是不相信网络，怕服务器端不知道要关闭，所以发送ACK=1,seq=u+1,ack=w+1后进入TIME_WAIT时间等待状态，如果服务端没有收到ACK则可以重传。服务器端收到ACK后，就知道可以断开连接了。客户端等待了2MSL后依然没有收到回复，则证明服务器端已正常关闭，那好，我客户端也可以关闭连接了。最终完成了四次握手。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/22/网络模型知多少/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2049,7 +2229,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
