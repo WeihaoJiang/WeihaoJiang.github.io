@@ -262,6 +262,203 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/25/HTTP学习总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Coding_dog">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding_dog的成长笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/25/HTTP学习总结/" itemprop="url">http学习总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-25T00:00:00+08:00">
+                2020-02-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/02/25/HTTP学习总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/25/HTTP学习总结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="关于http"><a href="#关于http" class="headerlink" title="关于http"></a>关于http</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>HTTP是一种用于在通信双方(通常是客户端和服务器端)传输数据(包括但不限于图片、文本、音频等)的可靠的数据传输协议，而且是基于TCP的应用层协议，从更高层次封装了TCP的使用细节，使得网络操作更为简单。</p>
+<h3 id="请求方式"><a href="#请求方式" class="headerlink" title="请求方式"></a>请求方式</h3><p><img src="https://s2.ax1x.com/2020/02/24/3G7ajS.png" alt="图片"><br>HTTP协议提供了几种请求方式，大家熟知的请求方式有8种GET、POST、DELETE、PUT、HEAD、TRACE、OPTIONS、CONNECT，其中最常用的是PUT（增）、DELETE(删)、POST（改）、GET（查）。</p>
+<ul>
+<li>1 get 获取资源：客户端通过URL获取服务端中的某个资源，请求参数放在URL中，然后服务端返回对应资源给客户端</li>
+<li>2 post 传输实体主体：POST请求通常会用来提交HTML表单，把数据填在表单中，传给服务器，然后服务器对这些数据进行处理，虽然GET方法也可以用来传输主体实体，但是一般采用POST方法</li>
+<li>3 put 传输文件：与GET相反，PUT向服务器写入数据，一般用来传输文件，把需要传输的文件放在请求报文的主体上，然后保存到URL指定的位置</li>
+<li>4 delete 删除文件：与PUT相反，DELETE请求求服务器删除URL所指定的资源，请求参数放在URL中，但是服务端可以在客户端不知情下撤销此请求</li>
+<li>5 head 获取报文首部：HEAD与GET类似，但服务器在响应中只返回首部不会返回主体部分，HEAD是用来在不获取资源的情况下获取资源的首部进行检查，如查看响应的状态码，看看资源是否被修改，对象是否存在</li>
+<li>6 trace 追踪路径：客户端发起一个请求时，可能要穿过防火墙，代理，网关等，每一个中间点都会修改HTTP原始请求报文，TRACE允许请求最终发送给服务端时，看看它最终变成什么样，服务端会返回一个状态码200 OK的响应报文，报文主体包含了TARCE信息</li>
+<li>7 options 询问支持的方法：OPTIONS询问服务端支持的用来查询指定URL资源的方法，这就让客户端不用访问那些实际的资源就能判定访问各种资源的最优方法</li>
+<li>8 connect 要求使用隧道协议连接代理：CONNECT要求在与代理服务器通信时建立隧道，实现用隧道进行TCP通信，隧道就是经过加密的通信信路，一般使用SSL/TLS协议把通信内容加密后经隧道传输</li>
+</ul>
+<h3 id="报文格式"><a href="#报文格式" class="headerlink" title="报文格式"></a>报文格式</h3><p>用于HTTP协议交换的信息称为HTTP报文，客户端发出的HTTP报文叫做请求报文，服务端返回的HTTP报文叫做响应报文，它们都是由多行数据构成的字符串文本<br><img src="https://s2.ax1x.com/2020/02/24/3GqajK.png" alt="格式如图"><br>大致可以分为两类</p>
+<h4 id="请求报文"><a href="#请求报文" class="headerlink" title="请求报文"></a>请求报文</h4><p>一个HTTP的请求报文通常由请求行，请求首部，空行(CR + LF)，请求主体4个部分组成，如图：<br><img src="https://s2.ax1x.com/2020/02/24/3GXN3n.png" alt="图片"><br>下面分别以get请求和post请求为例</p>
+<h5 id="GET的请求报文"><a href="#GET的请求报文" class="headerlink" title="GET的请求报文"></a>GET的请求报文</h5><p>对于GET方法来说，它所有的请求参数都是拼接在URL最后，第一个参数前通过”?”连接，然后请求参数按照”key=value”格式进行追加，每个请求参数之间通过”&amp;”连接，如 ：<br><a href="http://www.myhost.com/text/?id=1&amp;…" target="_blank" rel="noopener">www.myhost.com/text/?id=1&amp;…</a><br>这个URL对于GET请求表示获取 <a href="http://www.myhost.com/text/" target="_blank" rel="noopener">www.myhost.com/text/</a> 位置下用户id为1，名为rain的文本，相应的请求报文格式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /text/?id=1&amp;name=rain HTTP/1.1</span><br><span class="line">Host: www.myhost.com</span><br><span class="line">Cache-Control: no-cache</span><br></pre></td></tr></table></figure></p>
+<p>从上面的HTTP请求报文格式知，第一行为请求行，表明请求方式为GET，子路径为 /text/?id=1&amp;name=rain，HTTP版本为1.1，后两行为请求首部，Host为主机地址，Cache-Control为no-cache，表示客户端不接受服务端缓存过的资源，而GET的请求参数都在URL中，所以请求主体为空。</p>
+<h5 id="POST的请求报文"><a href="#POST的请求报文" class="headerlink" title="POST的请求报文"></a>POST的请求报文</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">POST /local/ HTTP/1.1</span><br><span class="line">Host: www.myhost.com</span><br><span class="line">Accept-Encoding：gzip</span><br><span class="line">Content-Length: 222222</span><br><span class="line">Content-Type: multipart/from-data；boundary=dRGP2cPPTxE6WRTssnh4jC7HJLcSde</span><br><span class="line">Connection：Keep-Alive</span><br><span class="line"></span><br><span class="line">--dRGP2cPPTxE6WRTssnh4jC7HJLcSde</span><br><span class="line">Content-Disposition：from-data；name=“username”  //name = username</span><br><span class="line">Content-Type：text/plain：charset=UTF-8</span><br><span class="line">Content-Transfer-Encoding: 8bit</span><br><span class="line"></span><br><span class="line">rain										//value = rain</span><br><span class="line">--dRGP2cPPTxE6WRTssnh4jC7HJLcSde</span><br><span class="line">Content-Diaposition:from-data:name=&quot;image&quot;      //name = image</span><br><span class="line">filename=&quot;/storage/emulated/0/image/1234.png&quot;</span><br><span class="line">Content-Type:application/octet-stream</span><br><span class="line">Content-Transfer-Encoding:binary</span><br><span class="line"></span><br><span class="line">//...省略二进制数据					        //value = 二进制数据</span><br><span class="line">--dRGP2cPPTxE6WRTssnh4jC7HJLcSde--</span><br></pre></td></tr></table></figure>
+<p>上述的请求报文的含义是向  <a href="http://www.myhost.com/local/" target="_blank" rel="noopener">www.myhost.com/local/</a>  这个地址发送一个POST请求，接受的内容编码方式为gzip，请求的数据长度为222222字节，请求的数据格式为 multipart/from-data（表单），报文的boundary值为dRGP2cPPTxE6WRTssnh4jC7HJLcSde，Keep-Alive为开启长连接，空行之后，接下来就是请求报文的主体，主体有两个请求参数：<br>一个是名为username，值为rain的文本；<br>一个是名为image，值为二进制数据的图片.</p>
+<h4 id="响应报文"><a href="#响应报文" class="headerlink" title="响应报文"></a>响应报文</h4><p>一个HTTP的响应报文通常由状态行、响应首部、空行(CR + LF)、响应主体组成<br><img src="https://s2.ax1x.com/2020/02/24/3Gx9cn.png" alt="格式如图"><br>比如这是一个GET请求的返回的响应报文格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">HTTP1.1 200 OK</span><br><span class="line">Data:Sat, 30, Dec 2006 23:23:00 GMT</span><br><span class="line">Content-Type:text/html；charset=UTF-8</span><br><span class="line">Content-Length:852</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;zh-CN&quot;&gt;</span><br><span class="line">	//...省略文档内容</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>上面HTTP响应报文表示，HTTP协议版本为1.1，响应状态码为200，表示请求成功，返回数据的类型为text/html（html）, 编码为UTF-8，返回数据的内容长度为852字节，空行之后，接下来就是返回的数据，是一个html文档</p>
+<h3 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h3><p>状态码的职责是当客户端向服务端发送请求时，描述服务端返回的请求结果，借助状态码，我们就可以得知服务端是正常处理了请求，还是出现了错误，下面是开发中经常遇见的状态码：</p>
+<h4 id="2XX成功"><a href="#2XX成功" class="headerlink" title="2XX成功"></a>2XX成功</h4><p>2XX的响应结果表示请求被正常处理了.</p>
+<ul>
+<li>200 OK：请求没有问题，实体的主体部分包含了所请求的资源</li>
+<li>204 No Content：该状态码表示服务端接收的请求已成功处理，但是在返回的响应报文中不包含主体部分，这说明请求处理成功，但是没有任何资源返回。比如当浏览器发出的请求处理后，返回204响应，那么浏览器显示的页面将不会发生任何更新；</li>
+<li>206 Partial Content: 该状态码表示客户端进行了范围请求，而服务端成功返回了这一部分范围的资源，即响应报文的主体部分中会包含由Content-Range指定范围的内容。</li>
+</ul>
+<h4 id="3XX重定向"><a href="#3XX重定向" class="headerlink" title="3XX重定向"></a>3XX重定向</h4><p>重定向状态码要么告知客户端使用替代位置来访问他们所感兴趣的资源，要么就提供一个替代的响应而不是资源的内容。如果资源已经被移走，可发送一个重定向状态码和一个可选的Location首部来告知客户端资源已经被移走，以及现在可以在哪里找到它。浏览器就可以在不影响用户浏览体验的情况下透明地在新的位置找到所需资源了。</p>
+<ul>
+<li>301 Moved Permanently：永久性重定向，该状态码表示请求的资源已被分配了新的URL，以后都应使用新的URL来访问该资源，这时响应报文首部的Location字段会提示新的URL。例如你使用这个最后忘记加斜杠 / 的地址 <a href="http://www.myhost.com" target="_blank" rel="noopener">www.myhost.com</a> 来访问服务端，就会返回301状态码，提示你使用正确的地址访问，不过这些重定向的操作浏览器在背后已经替我们处理了，所以用户是无法感知的；</li>
+<li>302 Found：临时重定向，该状态码表示请求的资源暂时被分配了新的URL，本次应使用新的URL来访问该资源，302代表资源不是被永久移动，而是临时移动，即本次会重定向到地址a，下一次可能会重定向到地址b或者不变，所以响应报文首部的Location字段提示的新URL并不是永久性的，而是临时性的；</li>
+<li>303 See Other：临时重定向，该状态码表示请求的资源暂时被分配了新的URL，本次应使用新的URL通过GET方法来访问该资源，303和302功能相似，但是303明确表示客户端重定向时应采用GET方法获取资源，而302就没有这个要求。（但是在现实中，大部分浏览器都没有遵循规范，不管是301、302还是303，都会把POST改成GET，然后重新获取资源）；</li>
+<li>304 Not Modified：304虽然被划分在3XX中，但是它和重定向没有任何关系，该状态码表示客户端访问的资源存在，但是未符合请求的附带条件，不允返回，这时返回的304响应报文不包含主体部分，请求的附带条件是指请求报文中包含If-Match，If-Modified-Since，If-None-Match，If-Range，If-Unmodified-Since中任一首部。例如客户端想要检查本地资源缓存是否过期，就在GET请求中附带If-Modified-Since条件，If-Modified-Since的值是本地资源的Last-Modified(上一次修改时间)的值，服务端接收请求后，就会检查资源在服务端的上一次修改的时间是否比If-Modified-Since的值更新，如果没有，说明资源没有被修改过，返回304响应报文，告诉客户端可以继续使用本地缓存。</li>
+</ul>
+<h4 id="4XX客户端错误"><a href="#4XX客户端错误" class="headerlink" title="4XX客户端错误"></a>4XX客户端错误</h4><p>4XX的响应结果表示客户端发生错误的原因所在.</p>
+<ul>
+<li>400 Bad Request：该状态码表示客户端的请求报文中有语法错误，不能被服务端理解，当发生该错误后需要修改请求内容后再次发送；</li>
+<li>401 Unauthorized：该状态码表示发送的请求需要有通过HTTP认证的认证信息，401的响应报文会包含一个被请求资源的WWW-Authenticate首部用来质询用户信息，当浏览器初次接收到401响应，会弹出认证窗口，当浏览器第二次收到401响应，表示认证失败；</li>
+<li>403 Forbidden：该状态码表示服务端收到了请求，但是拒绝提供服务，服务端不会给出拒绝的详细理由，例如没有文件的访问权限等都会返回404响应；</li>
+<li>404 Not Found：该状态码表示请求资源在服务端上不存在，或者服务端拒绝请求但不想说明理由也会返回404；</li>
+</ul>
+<h4 id="5XX服务端错误"><a href="#5XX服务端错误" class="headerlink" title="5XX服务端错误"></a>5XX服务端错误</h4><p>5XX的响应结果表示服务端发送错误的原因所在.</p>
+<ul>
+<li>500 Internal Server Error：该状态码表示服务端执行请求时发生了不可预估的错误，它表明服务端Web应用存在bug或其他故障；</li>
+<li>503 Server Unavailable：该状态码表示服务端当前不能处理客户端请求，一段时间后可能恢复正常，它表明服务端暂时处于超负载或停机维护状态，如果服务端得知故障恢复时间，它会在响应报文的Retry-After首部字段写入返回给客户端。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/24/TCP,UDP总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -394,6 +591,7 @@
 <li>3 第三次挥手：当服务器端确定数据已发送完成，则向客户端发送FIN=1，ACK=1,seq=w(半关闭状态下可能又发送了数据),ack=u+1（对收到客户端报文的重复确认）报文，告诉客户端，好了，我这边数据发完了，准备好关闭连接了。服务器端进入LAST_ACK最后确认状态。</li>
 <li>4 第四次挥手：客户端收到报文后，就知道可以关闭连接了，但是他还是不相信网络，怕服务器端不知道要关闭，所以发送ACK=1,seq=u+1,ack=w+1后进入TIME_WAIT时间等待状态，如果服务端没有收到ACK则可以重传。服务器端收到ACK后，就知道可以断开连接了。客户端等待了2MSL后依然没有收到回复，则证明服务器端已正常关闭，那好，我客户端也可以关闭连接了。最终完成了四次握手。</li>
 </ul>
+<p>本文参考：<a href="https://www.youtube.com/watch?v=p799RP-YFY8" target="_blank" rel="noopener">https://www.youtube.com/watch?v=p799RP-YFY8</a></p>
 
           
         
@@ -2019,169 +2217,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/27/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Coding_dog">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/me.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding_dog的成长笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/27/hello-world/" itemprop="url">hello world</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T00:00:00+08:00">
-                2018-08-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/我/" itemprop="url" rel="index">
-                    <span itemprop="name">我</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/27/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/27/hello-world/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="大事件"><a href="#大事件" class="headerlink" title="大事件"></a>大事件</h3><p> 20180703 入职新公司，职业生涯正式开始</p>
-<p> 20181106 明人不说暗话，得我所爱</p>
-<p> 20181206 媳妇超甜纪念视频</p>
-<p> 20181223 冰川火山纹身（我们的第一个纹身）</p>
-<p> 20190113 人生新高度</p>
-<p> 20190615 拍结婚证件照</p>
-<p> 20190912 求婚成功</p>
-<p> 20190930 第一次一起旅行</p>
-<p> 20191109 林俊杰演唱会</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -2229,7 +2271,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

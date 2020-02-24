@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://s2.ax1x.com/2020/02/23/31cCgP.jpg">
 <meta property="og:image" content="https://s2.ax1x.com/2020/02/23/33uXLD.png">
-<meta property="og:updated_time" content="2020-02-23T15:07:38.304Z">
+<meta property="og:updated_time" content="2020-02-23T15:16:06.420Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP,UDP知识总结">
 <meta name="twitter:description" content="TCP,UDP的对比概念TCPTCP（Transmission Control Protocol，传输控制协议），是一种面向连接的，基于窗口滑动的可靠传输协议，提供可靠（无差错、不丢失、不重复、按顺序）的字节流数据传输服务。在传输效率和可靠性之间选择了后者，所以有开销大、传输速度慢的缺点。 UDPUDP（User Datagram Protocol，用户数据报协议），是一种无连接的非可靠传输层协议">
@@ -394,6 +394,7 @@
 <li>3 第三次挥手：当服务器端确定数据已发送完成，则向客户端发送FIN=1，ACK=1,seq=w(半关闭状态下可能又发送了数据),ack=u+1（对收到客户端报文的重复确认）报文，告诉客户端，好了，我这边数据发完了，准备好关闭连接了。服务器端进入LAST_ACK最后确认状态。</li>
 <li>4 第四次挥手：客户端收到报文后，就知道可以关闭连接了，但是他还是不相信网络，怕服务器端不知道要关闭，所以发送ACK=1,seq=u+1,ack=w+1后进入TIME_WAIT时间等待状态，如果服务端没有收到ACK则可以重传。服务器端收到ACK后，就知道可以断开连接了。客户端等待了2MSL后依然没有收到回复，则证明服务器端已正常关闭，那好，我客户端也可以关闭连接了。最终完成了四次握手。</li>
 </ul>
+<p>本文参考：<a href="https://www.youtube.com/watch?v=p799RP-YFY8" target="_blank" rel="noopener">https://www.youtube.com/watch?v=p799RP-YFY8</a></p>
 
       
     </div>
@@ -433,6 +434,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/25/HTTP学习总结/" rel="prev" title="http学习总结">
+                http学习总结 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -516,7 +521,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
