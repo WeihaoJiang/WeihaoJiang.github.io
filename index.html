@@ -1790,7 +1790,7 @@
 <h2 id="看源码之前不清楚的两个问题："><a href="#看源码之前不清楚的两个问题：" class="headerlink" title="看源码之前不清楚的两个问题："></a>看源码之前不清楚的两个问题：</h2><ul>
 <li><p>1 Glide的方法能在子线程中使用吗？</p>
 <blockquote>
-<p>Glide的with()方法和load()方法是可以的，其中with()传入的context，若在非主线程，那么不管你是传入的Activity还是Fragment，都会被强制当成Application来处理，可能造成内存泄漏；而into()无法在主线程中使用，会抛出异常“You must call this method on the main thread”</p>
+<p>Glide的with()方法和load()方法是可以的，其中with()传入的context，若在非主线程，那么不管你是传入的Activity还是Fragment，都会被强制当成Application来处理，可能造成内存泄漏；而into()无法在子线程中使用，会抛出异常“You must call this method on the main thread”</p>
 </blockquote>
 </li>
 <li><p>2 如何处理一个大图的缓存？</p>
@@ -1995,9 +1995,11 @@
 <li>1 SparseArray的key为int，value为Object</li>
 <li>2 Android中，数据长度小于千时，用于替换HashMap,数据条数特别多的时候，效率会低于HashMap，因为它是基于二分查找去找数据的</li>
 <li>3 占用内存空间小，没有额外的Entry对象</li>
+<li>4 int数组，相比于hashmap不需要自动装箱</li>
+<li>5 在插入之前，如果由于之前进行过 delete()，remoeAt() 以及 removeReturnOld() 中的某一个方法，那就可能要执行 gc()方法,gc函数实际上就是将mValues数组中还未标记为DELETED的元素以及对应下标的mKeys数组中的元素移动到数组的前面，保证数组在0到mSize之间的元素都是未被标记为DELETED，经过gc之后，数据的位置可能会发生移动</li>
 </ul>
 <h2 id="ArrayMap"><a href="#ArrayMap" class="headerlink" title="ArrayMap"></a>ArrayMap</h2><p>ArrayMap是一个键值对映射的数据结构，它设计上更多的是考虑内存的优化，内部是使用两个数组进行数据存储，一个磁盘记录键的哈希值，另外一个数组记录Value值，它和SparseArray一样，也会对key使用二分法进行从小到大排序，区别是ArrayMap的key是哈希值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//构造方法</span><br><span class="line">public class ArrayMap&lt;K, V&gt; extends SimpleArrayMap&lt;K, V&gt; implements Map&lt;K, V&gt; &#123;</span><br><span class="line">    MapCollections&lt;K, V&gt; mCollections;</span><br><span class="line"></span><br><span class="line">    public ArrayMap() &#123;</span><br><span class="line">        super();</span><br><span class="line">    &#125;</span><br><span class="line">//父类</span><br><span class="line"> int[] mHashes;</span><br><span class="line">    Object[] mArray;</span><br><span class="line">    public SimpleArrayMap() &#123;</span><br><span class="line">        mHashes = ContainerHelpers.EMPTY_INTS;</span><br><span class="line">        mArray = ContainerHelpers.EMPTY_OBJECTS;</span><br><span class="line">        mSize = 0;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>总结:<br>因为ArrayMap与SparseArray内部都使用了二分法进行从小到大的排序，所以当数据量很大的时候，效率至少降低一半，所以谷歌推荐数据量在千级以内时使用ArrayMap与SparseArray，数据量非常大时使用HashMap</p>
+<p>总结:<br>因为ArrayMap与SparseArray内部都使用了二分法进行从小到大的排序，所以当数据量很大的时候，效率至少降低一半，所以谷歌推荐数据量在千级以内时使用ArrayMap与SparseArray，数据量非常大时使用HashMap<br>补充：ArrayMap的扩容机制，扩容时机在已经容量已经满了时候引发扩容。每次扩容的大小为原理容量的1.5倍，另外ArrayMap还有缩容机制，当ArrayMap内的元素小于自己容量的三分之一的时候就会引发缩容机制，最后缩为当前元素数量的1.5倍。</p>
 
           
         
