@@ -262,6 +262,189 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/01/kotlin总结（二）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Coding_dog">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding_dog的成长笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/12/01/kotlin总结（二）/" itemprop="url">Kotlin开发学习(二)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-01T00:00:00+08:00">
+                2020-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Kotlin/" itemprop="url" rel="index">
+                    <span itemprop="name">Kotlin</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/12/01/kotlin总结（二）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/12/01/kotlin总结（二）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>文接上回，继续kotlin和java就使用上的差异性进行讨论</p>
+<h2 id="kotlin的集合"><a href="#kotlin的集合" class="headerlink" title="kotlin的集合"></a>kotlin的集合</h2><h3 id="只读和可变"><a href="#只读和可变" class="headerlink" title="只读和可变"></a>只读和可变</h3><p>Kotlin 标准库提供了基本集合类型的实现： set、list 以及 map。 一对接口代表每种集合类型：<br>Collection 只读 接口，提供访问集合元素的操作。<br>MutableCollection 可变 接口，通过写操作扩展相应的只读接口：添加、删除和更新其元素。</p>
+<p><img src="https://s3.ax1x.com/2020/12/02/DI65cD.jpg" alt="图片"></p>
+<p>先上一张图：</p>
+<p>简单来说，绿色部分是我们常用的，实现只读接口的集合。<br>而红色部分，则是我们常用的，实现可变接口的集合</p>
+<p>注意：只读集合类型是型变的。 这意味着，如果类 Rectangle 继承自 Shape，则可以在需要 List <shape> 的任何地方使用 List <rectangle>。<br>     换句话说，集合类型与元素类型具有相同的子类型关系。 map 在值（value）类型上是型变的，但在键（key）类型上不是。</rectangle></shape></p>
+<pre><code>反之，可变集合不是型变的；否则将导致运行时故障。 如果 MutableList &lt;Rectangle&gt; 是 MutableList &lt;Shape&gt; 的子类型，
+你可以在其中插入其他 Shape 的继承者（例如，Circle），从而违反了它的 Rectangle 类型参数。
+</code></pre><h3 id="kotlin的list"><a href="#kotlin的list" class="headerlink" title="kotlin的list"></a>kotlin的list</h3><p>以list举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//集合</span><br><span class="line">   var i = listOf(&quot;周一&quot;,&quot;周二&quot;,&quot;周三&quot;)</span><br><span class="line">   var j = mutableListOf(&quot;周一&quot;,&quot;周二&quot;,&quot;周三&quot;)</span><br><span class="line"></span><br><span class="line">   fun lookList()&#123;</span><br><span class="line">       i.size</span><br><span class="line">       i.indexOf(&quot;周二&quot;)</span><br><span class="line">       i.add() //报错</span><br><span class="line">       </span><br><span class="line">       j.size</span><br><span class="line">       j.add(&quot;周四&quot;)</span><br><span class="line">       j.remove(&quot;周四&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        //还有很多特有的，更方便的方法,可以选择性掌握</span><br><span class="line">       val numbers = mutableListOf(1,2,3,4,5,6,7,8,9,10)</span><br><span class="line">       numbers.getOrNull(11) //如果有就返回，没有就返回null</span><br><span class="line">       numbers.indexOfFirst &#123; it &gt; 2 &#125; //返回第一个大于2的索引，结果为2</span><br><span class="line">       numbers.indexOfLast &#123; it &gt; 2 &#125;  //返回最后一个大于2的索引</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>在某些方面，List 与数组（Array）非常相似。 但是，有一个重要的区别：数组的大小是在初始化时定义的，永远不会改变; 反之，List 没有预定义的大小；作为写操作的结果，可以更改 List 的大小：添加，更新或删除元素。</p>
+<p>在 Kotlin 中，List 的默认实现是 ArrayList，可以将其视为可调整大小的数组。</p>
+<h3 id="数组与集合的操作符"><a href="#数组与集合的操作符" class="headerlink" title="数组与集合的操作符"></a>数组与集合的操作符</h3><p>其实 Kotlin 中，还为我们提供了许多使数组与集合操作起来更加方便的函数。这部分和Java有所区别</p>
+<ul>
+<li><p>1 filter:对每个元素进行过滤操作，如果 lambda 表达式中的条件成立则留下该元素，否则剔除，最终生成新的集合</p>
+</li>
+<li><p>2 map：遍历每个元素并执行给定表达式，最终形成新的集合</p>
+</li>
+<li><p>3 flatMap：遍历每个元素，并为每个元素创建新的集合，最后合并到一个集合中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//过滤掉等于被2整除的元素</span><br><span class="line">val filterList = numbers.filter &#123; i -&gt; i % 2 != 0  &#125;</span><br><span class="line"></span><br><span class="line">//每个元素加1</span><br><span class="line">val mapList = numbers.map &#123; i -&gt; i + 1 &#125;</span><br><span class="line"></span><br><span class="line">//生成新集合&#123;1,&quot;a&quot;,2,&quot;a&quot;,3,&quot;a&quot;,4,&quot;a&quot;,5,&quot;a&quot;,6,&quot;a&quot;,7,&quot;a&quot;,8,&quot;a&quot;,9,&quot;a&quot;,10,&quot;a&quot;&#125;</span><br><span class="line">val flatMapList = numbers.flatMap &#123; i -&gt; listOf(i,&quot;a&quot; )&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h2><h3 id="协程到底是啥"><a href="#协程到底是啥" class="headerlink" title="协程到底是啥"></a>协程到底是啥</h3><p>就是kotlin封装的，便于我们使用线程的api,本质上和Java的线程池，android的AsyncTask一样<br>同样我们在kotlin中同样可以使用这些来处理我们的并发操作,完全支持<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">fun lookThread()&#123;</span><br><span class="line">        //java 线程池</span><br><span class="line">        val executor = Executors.newCachedThreadPool()</span><br><span class="line">        executor.execute &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        //Android AsyncTask</span><br><span class="line">        //可见MyAsyncTask</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class MyAsyncTask constructor(context: Context):AsyncTask&lt;String, String, String&gt;()&#123;</span><br><span class="line">        override fun doInBackground(vararg params: String?): String &#123;</span><br><span class="line">            TODO(&quot;Not yet implemented&quot;)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        override fun onProgressUpdate(vararg values: String?) &#123;</span><br><span class="line">            super.onProgressUpdate(*values)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        override fun onPostExecute(result: String?) &#123;</span><br><span class="line">            super.onPostExecute(result)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="协程怎么用"><a href="#协程怎么用" class="headerlink" title="协程怎么用"></a>协程怎么用</h3><h4 id="声明协程的几种方式"><a href="#声明协程的几种方式" class="headerlink" title="声明协程的几种方式"></a>声明协程的几种方式</h4><p>下面列举了协程的三种使用方法和使用java写相同代码的案例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">fun lookCoroutine() &#123;</span><br><span class="line">       /**</span><br><span class="line">        * 方法一通常适用于单元测试的场景，而业务开发中不会用到这种方法，因为它是线程阻塞的。</span><br><span class="line">        */</span><br><span class="line">       runBlocking &#123;</span><br><span class="line">           // 网络请求（IO 线程</span><br><span class="line">           val list = getData()</span><br><span class="line">           // 更新 UI（主线程）</span><br><span class="line">           //nameTv.text = list[0]</span><br><span class="line">       &#125;</span><br><span class="line">       /**</span><br><span class="line">        * 方法二和使用 runBlocking 的区别在于不会阻塞线程。</span><br><span class="line">        * 但在 Android 开发中同样不推荐这种用法，因为它的生命周期会和 app 一致，且不能取消</span><br><span class="line">        */</span><br><span class="line">       GlobalScope.launch &#123;</span><br><span class="line">           // 网络请求（IO 线程)</span><br><span class="line">           val list = getData()</span><br><span class="line">           // 更新 UI（主线程）</span><br><span class="line">           //nameTv.text = list[0]</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       /**</span><br><span class="line">        * 方法三是比较推荐的使用方法，我们可以通过 context 参数去管理和控制协程的生命周期</span><br><span class="line">        * （这里的 context 和 Android 里的不是一个东西，是一个更通用的概念，会有一个 Android 平台的封装来配合使用）</span><br><span class="line">        */</span><br><span class="line">       val coroutineScope = CoroutineScope(constext)</span><br><span class="line">       coroutineScope.launch(Dispatchers.Main) &#123;</span><br><span class="line">           // 网络请求（IO 线程)</span><br><span class="line">           val list = getData()</span><br><span class="line">           //主线程更新 UI</span><br><span class="line">           //nameTv.text = list[0]</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       /**</span><br><span class="line">        * java实现上述功能</span><br><span class="line">        */</span><br><span class="line">       /*</span><br><span class="line">    getData(new Callback&lt;User&gt;() &#123;</span><br><span class="line">       @Override</span><br><span class="line">       public void success(List list) &#123;</span><br><span class="line">           runOnUiThread(new Runnable() &#123;</span><br><span class="line">               @Override</span><br><span class="line">               public void run() &#123;</span><br><span class="line">                   nameTv.setText(list[0]);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;)</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       @Override</span><br><span class="line">       public void failure(Exception e) &#123;</span><br><span class="line">       ...</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;);</span><br><span class="line">        */</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //假设它是网络请求方法</span><br><span class="line">   private fun getData() = ArrayList&lt;String&gt;()</span><br></pre></td></tr></table></figure>
+<h4 id="有些业务场景协程更适合"><a href="#有些业务场景协程更适合" class="headerlink" title="有些业务场景协程更适合"></a>有些业务场景协程更适合</h4><p>除了消除回调，还有很多场景协程显得更加方便，比如遇到的场景是多个网络请求需要等待所有请求结束之后再对 UI 进行更新。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//比如这两个请求</span><br><span class="line">api.getAvatar(user, callback)</span><br><span class="line">api.getCompanyLogo(user, callback)</span><br></pre></td></tr></table></figure></p>
+<p>通常来说，我们会要求后端只给一个借口，实在搞不定就写成串行请求<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">api.getAvatar(user) &#123; avatar -&gt;</span><br><span class="line">    api.getCompanyLogo(user) &#123; logo -&gt;</span><br><span class="line">        show(merge(avatar, logo))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>而如果使用协程，它可以这样写并行请求<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">coroutineScope.launch(Dispatchers.Main) &#123;</span><br><span class="line">    //            👇  async 函数之后再讲</span><br><span class="line">    val avatar = async &#123; api.getAvatar(user) &#125;    // 获取用户头像</span><br><span class="line">    val logo = async &#123; api.getCompanyLogo(user) &#125; // 获取用户所在公司的 logo</span><br><span class="line">    val merged = suspendingMerge(avatar, logo)    // 合并结果</span><br><span class="line">    //                  👆</span><br><span class="line">    show(merged) // 更新 UI</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="更轻松写意的线程切换"><a href="#更轻松写意的线程切换" class="headerlink" title="更轻松写意的线程切换"></a>更轻松写意的线程切换</h4><p>如果只是使用 launch 函数，协程并不能比线程做更多的事。不过协程中却有一个很实用的函数：withContext 。<br>这个函数可以切换到指定的线程，并在闭包内的逻辑执行结束之后，自动把线程切回去继续执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//假设它是网络请求方法</span><br><span class="line">   private fun getData() = ArrayList&lt;String&gt;()</span><br><span class="line">//线程切换</span><br><span class="line">   fun lookSwitchOne()&#123;</span><br><span class="line">       CoroutineScope(constext).launch(Dispatchers.Main) &#123;</span><br><span class="line"></span><br><span class="line">           val listOne = withContext(Dispatchers.IO) &#123;</span><br><span class="line">               getData()</span><br><span class="line">           &#125;</span><br><span class="line">           val listTwo = withContext(Dispatchers.IO) &#123;</span><br><span class="line">               getData()</span><br><span class="line">           &#125;</span><br><span class="line">           //nameTv.text = listOne[0] + listTwo[0]</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="协程是轻量级的线程吗？"><a href="#协程是轻量级的线程吗？" class="headerlink" title="协程是轻量级的线程吗？"></a>协程是轻量级的线程吗？</h3><p>上面的代码也可以这么写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fun lookSwitchTwo()&#123;</span><br><span class="line">        CoroutineScope(constext).launch(Dispatchers.Main) &#123;</span><br><span class="line">            val listOne = getDataList()</span><br><span class="line">            val listTwo = getDataList()</span><br><span class="line">            //nameTv.text = listOne[0] + listTwo[0]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //改造后的网络请求方法</span><br><span class="line">    suspend fun getDataList() = withContext(Dispatchers.IO)&#123;</span><br><span class="line">        getData()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<pre><code>suspend又是啥玩意儿？
+</code></pre><h4 id="挂起"><a href="#挂起" class="headerlink" title="挂起"></a>挂起</h4>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/06/okhttp源码分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2035,177 +2218,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/view总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Coding_dog">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/me.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Coding_dog的成长笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/16/view总结/" itemprop="url">View学习总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T00:00:00+08:00">
-                2019-07-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/07/16/view总结/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/16/view总结/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="背景以及夙愿"><a href="#背景以及夙愿" class="headerlink" title="背景以及夙愿"></a>背景以及夙愿</h2><ul>
-<li>1 写了一些自定义view的需求，希望有个总结，以供日后查阅</li>
-<li>2 view不仅仅是自定义view，希望有个全面了解</li>
-<li>3 养成研究源码的习惯</li>
-</ul>
-<h2 id="View概述"><a href="#View概述" class="headerlink" title="View概述"></a>View概述</h2><h3 id="官方文档的介绍"><a href="#官方文档的介绍" class="headerlink" title="官方文档的介绍"></a>官方文档的介绍</h3><p>View is the base class for widgets, which are used to create interactive UI components (buttons, text fields, etc.). The android.view.ViewGroup subclass is the base class for layouts, which are invisible containers that hold other Views (or other ViewGroups) and define their layout properties.<br>意思是说：View是窗口小部件的基类，用于创建交互式UI（Button,TextView等都是它的子类），而android.view.ViewGroup子类是布局的基类，它是包含其他视图（或其他ViewGroups）并定义其布局属性的不可见容器。<br>总结来说：我们看到的所有可视化UI组件都可以看做是View,下面从以下几个方面来了解它</p>
-<h2 id="View的滑动"><a href="#View的滑动" class="headerlink" title="View的滑动"></a>View的滑动</h2><h3 id="srollTo和srollBy"><a href="#srollTo和srollBy" class="headerlink" title="srollTo和srollBy"></a>srollTo和srollBy</h3><h4 id="看看源码"><a href="#看看源码" class="headerlink" title="看看源码"></a>看看源码</h4> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public void scrollTo(int x, int y) &#123;</span><br><span class="line">    if (mScrollX != x || mScrollY != y) &#123;</span><br><span class="line">        int oldX = mScrollX;</span><br><span class="line">        int oldY = mScrollY;</span><br><span class="line">        mScrollX = x;</span><br><span class="line">        mScrollY = y;</span><br><span class="line">        invalidateParentCaches();</span><br><span class="line">        onScrollChanged(mScrollX, mScrollY, oldX, oldY);</span><br><span class="line">        if (!awakenScrollBars()) &#123;</span><br><span class="line">            postInvalidateOnAnimation();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Move the scrolled position of your view. This will cause a call to</span><br><span class="line"> * &#123;@link #onScrollChanged(int, int, int, int)&#125; and the view will be</span><br><span class="line"> * invalidated.</span><br><span class="line"> * @param x the amount of pixels to scroll by horizontally</span><br><span class="line"> * @param y the amount of pixels to scroll by vertically</span><br><span class="line"> */</span><br><span class="line">public void scrollBy(int x, int y) &#123;</span><br><span class="line">    scrollTo(mScrollX + x, mScrollY + y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="具体说明"><a href="#具体说明" class="headerlink" title="具体说明"></a>具体说明</h4><p> srollTo()方法：在当前视图内容偏移至(x , y)坐标处，即显示(可视)区域位于(x , y)坐标处。<br> srollBy()方法：在当前视图内容继续偏移(x , y)个单位，显示(可视)区域也跟着偏移(x,y)个单位。<br> srollTo()和srollBy()移动得都是view的内容，view本身并未移动</p>
-<h4 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h4><p> 下面写了一个demo验证一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">   protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">       super.onCreate(savedInstanceState);</span><br><span class="line">       setContentView(R.layout.activity_main);</span><br><span class="line">       bn_scrollTo = findViewById(R.id.bn_scrollTo);</span><br><span class="line">       bn_scrollBy = findViewById(R.id.bn_scrollBy);</span><br><span class="line">       text = findViewById(R.id.tv_text);</span><br><span class="line"></span><br><span class="line">       bn_scrollTo.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">           @Override</span><br><span class="line">           public void onClick(View v) &#123;</span><br><span class="line">               v.scrollTo(50,50);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line">       bn_scrollBy.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">           @Override</span><br><span class="line">           public void onClick(View v) &#123;</span><br><span class="line">               v.scrollBy(50,50);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line">       </span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-<p>运行效果<br><img src="https://s2.ax1x.com/2019/07/16/ZbpygP.gif" alt="图片"></p>
-<h3 id="通过动画实现"><a href="#通过动画实现" class="headerlink" title="通过动画实现"></a>通过动画实现</h3><h4 id="看例子"><a href="#看例子" class="headerlink" title="看例子"></a>看例子</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        bn_scrollTo = findViewById(R.id.bn_scrollTo);</span><br><span class="line">        bn_scrollBy = findViewById(R.id.bn_scrollBy);</span><br><span class="line">        text = findViewById(R.id.tv_text);</span><br><span class="line"></span><br><span class="line">        bn_scrollTo.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View v) &#123;</span><br><span class="line">                //v.scrollTo(50,50);</span><br><span class="line">                ObjectAnimator.ofFloat(bn_scrollTo,&quot;translationX&quot;,0,200,0,0).setDuration(1000).start();</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        bn_scrollBy.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View v) &#123;</span><br><span class="line">                //v.scrollBy(50,50);</span><br><span class="line">                ObjectAnimator.ofFloat(bn_scrollBy,&quot;translationX&quot;,0,-200,0,0).setDuration(1000).start();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行效果<br><img src="https://s2.ax1x.com/2019/07/16/ZbZOQH.gif" alt="图片"></p>
-<h4 id="方法说明"><a href="#方法说明" class="headerlink" title="方法说明"></a>方法说明</h4><p>这里使用了属性动画ObjectAnimator来实现滑动，个人理解动画并不属于滑动，只是实现了类似滑动的效果，我们可以通过调整动画持续时间setDuration()来做出具有弹性的滑动效果，这里不再多说，关于ObjectAnimator的其他方法可以<a href="https://blog.csdn.net/harvic880925/article/details/50598322" target="_blank" rel="noopener">参考</a></p>
-<h3 id="改变LayoutParams"><a href="#改变LayoutParams" class="headerlink" title="改变LayoutParams"></a>改变LayoutParams</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) text.getLayoutParams();</span><br><span class="line">     params.width += 100;</span><br><span class="line">     params.leftMargin += 100;</span><br><span class="line">     text.requestLayout();</span><br></pre></td></tr></table></figure>
-<h3 id="Scroller"><a href="#Scroller" class="headerlink" title="Scroller"></a>Scroller</h3><p>先来看看官方给出的使用样例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">private Scroller mScroller = new Scroller(context);</span><br><span class="line">  ...</span><br><span class="line">  public void zoomIn() &#123;</span><br><span class="line">      // Revert any animation currently in progress</span><br><span class="line">      mScroller.forceFinished(true);</span><br><span class="line">      // Start scrolling by providing a starting point and</span><br><span class="line">      // the distance to travel</span><br><span class="line">      mScroller.startScroll(0, 0, 100, 0);</span><br><span class="line">      // Invalidate to request a redraw</span><br><span class="line">      invalidate();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<p>使用起来非常简单，我们一个一个方法往下分析<br>先来看看startScroll()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public void startScroll(int startX, int startY, int dx, int dy, int duration) &#123;</span><br><span class="line">      mMode = SCROLL_MODE;</span><br><span class="line">      mFinished = false;</span><br><span class="line">      mDuration = duration;</span><br><span class="line">      mStartTime = AnimationUtils.currentAnimationTimeMillis();</span><br><span class="line">      mStartX = startX;</span><br><span class="line">      mStartY = startY;</span><br><span class="line">      mFinalX = startX + dx;</span><br><span class="line">      mFinalY = startY + dy;</span><br><span class="line">      mDeltaX = dx;</span><br><span class="line">      mDeltaY = dy;</span><br><span class="line">      mDurationReciprocal = 1.0f / (float) mDuration;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<p>startScroll()方法中保存了滑动起点，滑动距离，滑动时间等等这种参数，但是未见具体滑动代码，真正使view产生滑动效果的是invalidate()<br>invalidate()方法会导致view重绘，draw方法中调用computeScroll(),computeScroll()是一个空方法需要自己重写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line"> public void computeScroll() &#123;</span><br><span class="line">     if (mScroller.computeScrollOffset()) &#123;</span><br><span class="line">         scrollTo(mScroller.getCurrX(), mScroller.getCurrY());</span><br><span class="line">         invalidate();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
-<p>向Scroller获取scrollX，scrollY,通过scrollTo()进行滑动，然后再调用invalidate(),重复上述步骤，循环调用直到滑动结束，至于循环多少次呢，是由computeScrollOffset()决定的。<br>下面仅贴出关键代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">   * Call this when you want to know the new location.  If it returns true,</span><br><span class="line">   * the animation is not yet finished.</span><br><span class="line">   */ </span><br><span class="line">  public boolean computeScrollOffset() &#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">      int timePassed = (int)(AnimationUtils.currentAnimationTimeMillis() - mStartTime);</span><br><span class="line">  </span><br><span class="line">      if (timePassed &lt; mDuration) &#123;</span><br><span class="line">          switch (mMode) &#123;</span><br><span class="line">          case SCROLL_MODE:</span><br><span class="line">              final float x = mInterpolator.getInterpolation(timePassed * mDurationReciprocal);</span><br><span class="line">              mCurrX = mStartX + Math.round(x * mDeltaX);</span><br><span class="line">              mCurrY = mStartY + Math.round(x * mDeltaY);</span><br><span class="line">              break;</span><br><span class="line">         ...</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      else &#123;</span><br><span class="line">          mCurrX = mFinalX;</span><br><span class="line">          mCurrY = mFinalY;</span><br><span class="line">          mFinished = true;</span><br><span class="line">      &#125;</span><br><span class="line">      return true;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<p>可以看到是通过当前时间和滑动开始时间的差值所占滑动时间的份数来计算的，返回false则滑动结束，否则继续循环。</p>
-<h2 id="View的事件分发机制"><a href="#View的事件分发机制" class="headerlink" title="View的事件分发机制"></a>View的事件分发机制</h2><p>这一节更多的会提炼成文字，源码的分析过程涉及子view，父view各自的事件分发三件套方法，不太容易形成书面语言<br>1、一个view的事件最先传递给它所在的activity的decorview,decorview是当前页面的顶层容器，我们setContentView(R.layout.xxx)设置的view就是decorview的子view<br>2、然后首先调用顶级View的dispathTouchEvent(),在这个方法中通过onInterceptTouchEvent()来判断是否拦截，如果返回false，则继续分发；如果返回true则由顶级view处理，则需要判断是否设置了mOnTouchListener,是则调用onTouch(),否则调用onTouchEvent()<br>3、子view继续重复1，2步骤分发</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2260,7 +2272,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
