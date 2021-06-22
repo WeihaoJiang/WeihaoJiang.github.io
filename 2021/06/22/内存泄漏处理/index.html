@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="我," />
+  <meta name="keywords" content="android," />
 
 
 
@@ -79,18 +79,26 @@
 
 
 
-<meta name="description" content="大事件 20180703 入职58同城，职业生涯正式开始  20181106 明人不说暗话，得我所爱  20181206 媳妇超甜纪念视频  20181223 冰川火山纹身（我们的第一个纹身）  20190113 人生新高度  20190615 拍结婚证件照  20190912 求婚成功  20190930 第一次一起旅行  20191109 林俊杰演唱会  20200523 第一次去小倩倩家">
-<meta name="keywords" content="我">
+<meta name="description" content="背景：相应公司Q2技术战略，根据领导安排，集中处理主端的内存泄漏情况。主端采用友盟检测异常包括崩溃，ANR等等，缺乏直观的内存泄漏检测，为了弥补这块缺失，主端在早期就接入了LeakCanary用以检测，因此我接到任务之后第一件事就是使用LeakCanary查看，查看结果惨不忍睹，高繁使用app之后内存泄漏次数高达1000+ 寻求解决方法：工具选择：面对主端动辄几百上千行代码的类，仅仅依靠LeakC">
+<meta name="keywords" content="android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hello world">
-<meta property="og:url" content="http://yoursite.com/2018/08/27/hello-world/index.html">
+<meta property="og:title" content="记录一次内存泄漏处理">
+<meta property="og:url" content="http://yoursite.com/2021/06/22/内存泄漏处理/index.html">
 <meta property="og:site_name" content="Coding_dog的成长笔记">
-<meta property="og:description" content="大事件 20180703 入职58同城，职业生涯正式开始  20181106 明人不说暗话，得我所爱  20181206 媳妇超甜纪念视频  20181223 冰川火山纹身（我们的第一个纹身）  20190113 人生新高度  20190615 拍结婚证件照  20190912 求婚成功  20190930 第一次一起旅行  20191109 林俊杰演唱会  20200523 第一次去小倩倩家">
+<meta property="og:description" content="背景：相应公司Q2技术战略，根据领导安排，集中处理主端的内存泄漏情况。主端采用友盟检测异常包括崩溃，ANR等等，缺乏直观的内存泄漏检测，为了弥补这块缺失，主端在早期就接入了LeakCanary用以检测，因此我接到任务之后第一件事就是使用LeakCanary查看，查看结果惨不忍睹，高繁使用app之后内存泄漏次数高达1000+ 寻求解决方法：工具选择：面对主端动辄几百上千行代码的类，仅仅依靠LeakC">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-11-14T06:31:23.823Z">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/22/RVRrq0.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/22/RVR7dK.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/22/RVOUv6.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/22/RVOqx0.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/22/RVXZZD.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/22/RVXYdg.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/06/22/RVXdWn.png">
+<meta property="og:updated_time" content="2021-06-22T03:20:57.718Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hello world">
-<meta name="twitter:description" content="大事件 20180703 入职58同城，职业生涯正式开始  20181106 明人不说暗话，得我所爱  20181206 媳妇超甜纪念视频  20181223 冰川火山纹身（我们的第一个纹身）  20190113 人生新高度  20190615 拍结婚证件照  20190912 求婚成功  20190930 第一次一起旅行  20191109 林俊杰演唱会  20200523 第一次去小倩倩家">
+<meta name="twitter:title" content="记录一次内存泄漏处理">
+<meta name="twitter:description" content="背景：相应公司Q2技术战略，根据领导安排，集中处理主端的内存泄漏情况。主端采用友盟检测异常包括崩溃，ANR等等，缺乏直观的内存泄漏检测，为了弥补这块缺失，主端在早期就接入了LeakCanary用以检测，因此我接到任务之后第一件事就是使用LeakCanary查看，查看结果惨不忍睹，高繁使用app之后内存泄漏次数高达1000+ 寻求解决方法：工具选择：面对主端动辄几百上千行代码的类，仅仅依靠LeakC">
+<meta name="twitter:image" content="https://z3.ax1x.com/2021/06/22/RVRrq0.png">
 
 
 
@@ -120,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/27/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2021/06/22/内存泄漏处理/"/>
 
 
 
 
 
-  <title>hello world | Coding_dog的成长笔记</title>
+  <title>记录一次内存泄漏处理 | Coding_dog的成长笔记</title>
   
 
 
@@ -263,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/27/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/22/内存泄漏处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Coding_dog">
@@ -280,7 +288,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">hello world</h1>
+          <h1 class="post-title" itemprop="name headline">记录一次内存泄漏处理</h1>
         
 
         <div class="post-meta">
@@ -292,8 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T00:00:00+08:00">
-                2018-08-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-22T00:00:00+08:00">
+                2021-06-22
               </time>
             
 
@@ -315,8 +323,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/我/" itemprop="url" rel="index">
-                    <span itemprop="name">我</span>
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
                   </a>
                 </span>
 
@@ -333,8 +341,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/27/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/27/hello-world/" itemprop="commentCount"></span>
+                <a href="/2021/06/22/内存泄漏处理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/06/22/内存泄漏处理/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,22 +370,32 @@
       
 
       
-        <h3 id="大事件"><a href="#大事件" class="headerlink" title="大事件"></a>大事件</h3><p> 20180703 入职58同城，职业生涯正式开始</p>
-<p> 20181106 明人不说暗话，得我所爱</p>
-<p> 20181206 媳妇超甜纪念视频</p>
-<p> 20181223 冰川火山纹身（我们的第一个纹身）</p>
-<p> 20190113 人生新高度</p>
-<p> 20190615 拍结婚证件照</p>
-<p> 20190912 求婚成功</p>
-<p> 20190930 第一次一起旅行</p>
-<p> 20191109 林俊杰演唱会</p>
-<p> 20200523 第一次去小倩倩家</p>
-<p> 20200531 第一次见涛爸霞妈</p>
-<p> 20200615 入职一点资讯，职业生涯过渡期</p>
-<p> 20200915 涛爸霞妈带我们请人算定了日子</p>
-<p> 20200930 第一次带媳妇儿回家见群爸娟妈</p>
-<p> 20201016 去拍婚纱照</p>
-<p> 20201106 在一起两年啦，媳妇儿带我看了新家</p>
+        <h2 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h2><p>相应公司Q2技术战略，根据领导安排，集中处理主端的内存泄漏情况。<br>主端采用友盟检测异常包括崩溃，ANR等等，缺乏直观的内存泄漏检测，为了弥补这块缺失，主端在早期就接入了LeakCanary用以检测，因此我接到任务之后第一件事就是使用LeakCanary查看，查看结果惨不忍睹，高繁使用app之后内存泄漏次数高达1000+</p>
+<h2 id="寻求解决方法："><a href="#寻求解决方法：" class="headerlink" title="寻求解决方法："></a>寻求解决方法：</h2><h3 id="工具选择："><a href="#工具选择：" class="headerlink" title="工具选择："></a>工具选择：</h3><p>面对主端动辄几百上千行代码的类，仅仅依靠LeakCanary提供的信息已经不太够用了，我们需要尝试其他方法</p>
+<p>需要工具：Android studio和Memory Analyzer Tool</p>
+<p>附上Memory Analyzer Tool下载地址：<a href="http://www.eclipse.org/mat/downloads.php" target="_blank" rel="noopener">http://www.eclipse.org/mat/downloads.php</a></p>
+<h3 id="实操步骤："><a href="#实操步骤：" class="headerlink" title="实操步骤："></a>实操步骤：</h3><h4 id="第一步：借助-Android-Profiler获得内存快照"><a href="#第一步：借助-Android-Profiler获得内存快照" class="headerlink" title="第一步：借助 Android Profiler获得内存快照"></a>第一步：借助 Android Profiler获得内存快照</h4><p>在手机随机切换,刷新频道，打开正文页，使用搜索等主要功能，然后在Android studio里打开Android Profiler</p>
+<p><img src="https://z3.ax1x.com/2021/06/22/RVRrq0.png" alt="图片"></p>
+<p>拖动鼠标选择想要查看的片段，点击Dump Java Heap</p>
+<p><img src="https://z3.ax1x.com/2021/06/22/RVR7dK.png" alt="图片"></p>
+<p>截止到此，我们可以得到内存泄漏的类名，这和LeakCanary得到的信息是一样的</p>
+<p>点击Export Heap Dump,将输出的.HPROF文件保存好</p>
+<p><img src="https://z3.ax1x.com/2021/06/22/RVOUv6.png" alt="图片"></p>
+<h4 id="第二步：将得到的内存快照导入Memory-Analyzer-Tool分析"><a href="#第二步：将得到的内存快照导入Memory-Analyzer-Tool分析" class="headerlink" title="第二步：将得到的内存快照导入Memory Analyzer Tool分析"></a>第二步：将得到的内存快照导入Memory Analyzer Tool分析</h4><p>这里需要注意，Memory Analyzer Tool无法直接打开我们需要使用SDK platform-tools 把 hprof 文件转换成 MAT工具可识别的格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">转换mat标准文件</span><br><span class="line">命令：hprof-conv -z src dst</span><br><span class="line">src  是原文件</span><br><span class="line">dst  是需要转换成的文件, 注意名字一定有 _mat</span><br></pre></td></tr></table></figure>
+<p>我执行的命令：hprof-conv -z /Users/jiangweihao/Downloads/内存泄漏/2021052601/memory-20210526T154455.hprof memory_mat.hprof</p>
+<p>就这样在指定的目录里成功得到了我需要的memory_mat.hprof</p>
+<p>然后在Memory Analyzer Tool中把memory_mat.hprof打开</p>
+<p><img src="https://z3.ax1x.com/2021/06/22/RVOqx0.png" alt="图片"></p>
+<p>这样就得到了一张大饼，MAT很强大，本次任务只关注内存泄漏，直接点击Histogram即可</p>
+<p><img src="https://z3.ax1x.com/2021/06/22/RVXZZD.png" alt="图片"></p>
+<p>在红框框里搜索我们之前在Android studio中获知的产生内存泄漏的类</p>
+<p>将所得结果进行合并，排除“软”、“弱”、“虚”引用对象，右键点击搜索到的结果</p>
+<p><img src="https://z3.ax1x.com/2021/06/22/RVXYdg.png" alt="图片"></p>
+<p>可以比较直观地获知哪些对象引起的内存泄漏，这对于7000多行的NewsActivity来说很重要</p>
+<p><img src="https://z3.ax1x.com/2021/06/22/RVXdWn.png" alt="图片"></p>
+<p>之后就是逐一排查修改了</p>
+<h2 id="后续："><a href="#后续：" class="headerlink" title="后续："></a>后续：</h2><p>修改成果涉及公司隐私不宜展示，仅记录一下过程</p>
 
       
     </div>
@@ -395,7 +413,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/我/" rel="tag"># 我</a>
+            <a href="/tags/android/" rel="tag"># android</a>
           
         </div>
       
@@ -408,15 +426,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2020/12/01/kotlin总结（二）/" rel="next" title="Kotlin开发学习(二)">
+                <i class="fa fa-chevron-left"></i> Kotlin开发学习(二)
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/09/handler总结/" rel="prev" title="handler学习总结">
-                handler学习总结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -555,7 +573,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#大事件"><span class="nav-number">1.</span> <span class="nav-text">大事件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景："><span class="nav-number">1.</span> <span class="nav-text">背景：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寻求解决方法："><span class="nav-number">2.</span> <span class="nav-text">寻求解决方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工具选择："><span class="nav-number">2.1.</span> <span class="nav-text">工具选择：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实操步骤："><span class="nav-number">2.2.</span> <span class="nav-text">实操步骤：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步：借助-Android-Profiler获得内存快照"><span class="nav-number">2.2.1.</span> <span class="nav-text">第一步：借助 Android Profiler获得内存快照</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二步：将得到的内存快照导入Memory-Analyzer-Tool分析"><span class="nav-number">2.2.2.</span> <span class="nav-text">第二步：将得到的内存快照导入Memory Analyzer Tool分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后续："><span class="nav-number">3.</span> <span class="nav-text">后续：</span></a></li></ol></div>
             
 
           </div>
