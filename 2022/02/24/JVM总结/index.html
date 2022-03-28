@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2022/03/24/qG7M1U.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2022/03/24/qGOv7Q.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2022/03/25/qt7zTJ.png">
-<meta property="og:updated_time" content="2022-03-28T08:30:26.132Z">
+<meta property="og:updated_time" content="2022-03-28T08:53:32.831Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM学习总结">
 <meta name="twitter:description" content="背景以及夙愿JVM研究了很多次，包括深入理解Java虚拟机的书籍，但总是记不住,可能还是平时用的少，借这个机会总结下加深印象 JVM是什么？其实就是Java虚拟机，我们写好的.java文件，经过javac编译成了.class字节码，再由JVM把字节码处理也叫翻译成机器码（像010101）给操作系统，值得注意的是JVM具有跨平台性（比如可以运行在Windows，Linus等不同操作系统）和跨语言性（">
@@ -398,7 +398,7 @@
 <li>堆内存中的对象对所有线程可见。堆内存中的对象可以被所有线程访问。</li>
 <li>栈的内存要远远小于堆内存</li>
 </ul>
-<p>##OOM</p>
+<p>##内存溢出</p>
 <h3 id="栈溢出"><a href="#栈溢出" class="headerlink" title="栈溢出"></a>栈溢出</h3><p>java.lang.StackOverflowError 一般的方法调用是很难出现的，如果出现了要考虑是否有无限递归。</p>
 <p>虚拟机栈带给我们的启示：方法的执行因为要打包成栈桢，所以天生要比实现同样功能的循环慢，所以树的遍历算法中：递归和非递归(循环来实现)都有存在的意义。递归代码简洁，非递归代码复杂但是速度较快。</p>
 <h3 id="堆溢出"><a href="#堆溢出" class="headerlink" title="堆溢出"></a>堆溢出</h3><p>大部分oom都是堆溢出</p>
