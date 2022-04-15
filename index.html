@@ -444,6 +444,10 @@
 <li><p>还有 class，NullPointException,类加载器，加锁synchronized对象等等</p>
 </li>
 </ul>
+<p>判断对象是不可用的时候还可以通过重写finalize方法进行拯救，不过执行finalize方法的线程优先级很低，日常开发不建议使用</p>
+<h2 id="对象的分配策略"><a href="#对象的分配策略" class="headerlink" title="对象的分配策略"></a>对象的分配策略</h2><p><img src="https://s1.ax1x.com/2022/04/01/q4AbPe.png" alt="图片"></p>
+<h3 id="逃逸分析"><a href="#逃逸分析" class="headerlink" title="逃逸分析"></a>逃逸分析</h3><h4 id="关于栈上分配"><a href="#关于栈上分配" class="headerlink" title="关于栈上分配"></a>关于栈上分配</h4><p>首先，不是所有的对象都在堆里，对于线程私有的对象，将它打散分配在栈上，而不分配在堆上。好处是对象跟着方法调用自行销毁，不需要进行垃圾回收，可以提高性能。</p>
+<h4 id="逃逸分析-1"><a href="#逃逸分析-1" class="headerlink" title="逃逸分析"></a>逃逸分析</h4><p>逃逸分析的目的是判断对象的作用域是否会逃逸出方法体。注意，任何可以在多个线程之间共享的对象，一定都属于逃逸对象。</p>
 
           
         
