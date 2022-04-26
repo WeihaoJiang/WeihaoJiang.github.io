@@ -448,6 +448,19 @@
 <h2 id="对象的分配策略"><a href="#对象的分配策略" class="headerlink" title="对象的分配策略"></a>对象的分配策略</h2><p><img src="https://s1.ax1x.com/2022/04/01/q4AbPe.png" alt="图片"></p>
 <h3 id="逃逸分析"><a href="#逃逸分析" class="headerlink" title="逃逸分析"></a>逃逸分析</h3><h4 id="关于栈上分配"><a href="#关于栈上分配" class="headerlink" title="关于栈上分配"></a>关于栈上分配</h4><p>首先，不是所有的对象都在堆里，对于线程私有的对象，将它打散分配在栈上，而不分配在堆上。好处是对象跟着方法调用自行销毁，不需要进行垃圾回收，可以提高性能。</p>
 <h4 id="逃逸分析-1"><a href="#逃逸分析-1" class="headerlink" title="逃逸分析"></a>逃逸分析</h4><p>逃逸分析的目的是判断对象的作用域是否会逃逸出方法体。注意，任何可以在多个线程之间共享的对象，一定都属于逃逸对象。</p>
+<h2 id="垃圾回收理论"><a href="#垃圾回收理论" class="headerlink" title="垃圾回收理论"></a>垃圾回收理论</h2><p><img src="https://s1.ax1x.com/2022/04/21/LcwY4K.png" alt="图片"></p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><ul>
+<li>JVM内存结构</li>
+<li>什么情况下栈内存溢出</li>
+<li>描述new一个对象的过程</li>
+<li>Java对象会不会分配在栈中</li>
+<li>判断对象被回收有哪些算法</li>
+<li>gc收集算法有哪些？特点是什么？</li>
+<li>JVM一次完整的gc流程</li>
+<li>Java的4种引用</li>
+<li>final,finally,finalize的区别</li>
+<li>String s = new String(“a”);创建了几个对象</li>
+</ul>
 
           
         
